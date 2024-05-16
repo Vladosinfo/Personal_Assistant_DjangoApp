@@ -1,4 +1,4 @@
-{% extends "quoteapp/base.html" %}
+{% extends "contacts/base.html" %}
 
 {% block content %}
 
@@ -15,6 +15,13 @@
         <span>{{ form.errors.username }}</span>
     </div>
     <br>
+    <div>
+        <label> Email:
+            {{ form.email }}
+        </label>
+        <span>{{ form.errors.email }}</span>
+    </div>
+    <br>    
     <div>
         <label> Password:
             {{ form.password1 }}

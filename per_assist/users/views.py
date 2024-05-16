@@ -11,13 +11,13 @@ from .forms import RegisterForm, LoginForm
 
 def signupuser(request):
     if request.user.is_authenticated:
-        return redirect(to='notes:main')
+        return redirect(to='contacts:main')
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(to='quoteapp:main')
+            return redirect(to='contacts:main')
         else:
             return render(request, 'users/signup.html', context={"form": form})
 
@@ -26,7 +26,7 @@ def signupuser(request):
 
 def loginuser(request):
     if request.user.is_authenticated:
-       return redirect(to='quoteapp:main')
+       return redirect(to='contacts:main')
 
     if request.method == 'POST':
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
@@ -35,7 +35,7 @@ def loginuser(request):
             return redirect(to='users:login')
 
         login(request, user)
-        return redirect(to='quoteapp:main')
+        return redirect(to='contacts:main')
 
     return render(request, 'users/login.html', context={"form": LoginForm()})
 
@@ -43,7 +43,7 @@ def loginuser(request):
 @login_required
 def logoutuser(request):
     logout(request)
-    return redirect(to='quoteapp:main')
+    return redirect(to='contacts:main')
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):

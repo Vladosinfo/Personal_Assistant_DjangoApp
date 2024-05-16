@@ -24,7 +24,7 @@ body {
   margin: 4px;
 }
 
-.quote {
+.per_assist {
   padding: 10px;
   margin-bottom: 30px;
   border: 1px solid #333333;
@@ -32,19 +32,19 @@ body {
   box-shadow: 2px 2px 3px #333333;
 }
 
-.quote small.author {
+.per_assist small.author {
   font-weight: bold;
   color: #3677E8;
 }
 
-.quote span.text {
+.per_assist span.text {
   display: block;
   margin-bottom: 5px;
   font-size: large;
   font-style: italic;
 }
 
-.quote .tags {
+.per_assist .tags {
   margin-top: 10px;
 }
 
@@ -122,28 +122,28 @@ ul.pager {
   color: #b02cce;
 }
 
- .quote-menu {
+ .per_assist-menu {
   display: flex;
   padding-top: 35px ;
 }
 
-.quote-menu ul li {
+.per_assist-menu ul li {
   display: inline;
   width: 45px;
 }
 
-.quote-menu a{
+.per_assist-menu a{
   font-size: 20px;
   padding-right: 10px;
   padding-left: 10px;
 }
 
-.quote-menu .user-menu{
+.per_assist-menu .user-menu{
   width: 60%;
   text-align: right;
 }
 
-.quote-menu .user-login-menu{
+.per_assist-menu .user-login-menu{
   width: 40%;
   text-align: right;
 }
