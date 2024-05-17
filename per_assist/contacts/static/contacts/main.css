@@ -122,28 +122,28 @@ ul.pager {
   color: #b02cce;
 }
 
- .per_assist-menu {
+ .per-assist-menu {
   display: flex;
   padding-top: 35px ;
 }
 
-.per_assist-menu ul li {
+.per-assist-menu ul li {
   display: inline;
   width: 45px;
 }
 
-.per_assist-menu a{
+.per-assist-menu a{
   font-size: 20px;
   padding-right: 10px;
   padding-left: 10px;
 }
 
-.per_assist-menu .user-menu{
+.per-assist-menu .user-menu{
   width: 60%;
   text-align: right;
 }
 
-.per_assist-menu .user-login-menu{
+.per-assist-menu .user-login-menu{
   width: 40%;
   text-align: right;
 }
