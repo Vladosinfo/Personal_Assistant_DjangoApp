@@ -666,7 +666,7 @@
     height: 200%;
   }
 
-  .quote .tags a.remove{
+  .note .tags a.remove{
     color:rgb(255, 0, 0);
     font-weight: bold;
   }

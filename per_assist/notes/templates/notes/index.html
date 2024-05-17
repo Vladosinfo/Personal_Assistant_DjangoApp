@@ -2,29 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Personal assistant</title>
+    <title>Quotes</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'contacts/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'contacts/main.css' %}">
+    <link rel="stylesheet" href="{% static 'quoteapp/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'quoteapp/main.css' %}">
 </head>
 <body>
 
     <div class="container">
         <div class="row header-box">
             <div class="col-md-3">
-                <h1> Main page
-                    <!-- <a href="/" style="text-decoration: none">Quotes</a> -->
+                <h1>
+                    <a href="/" style="text-decoration: none">Quotes</a>
                 </h1>
             </div>
             <div class="col-md-9">
-
-                <div class="per-assist-menu-container">
+                <div class="quote-menu-container">
                     {% if user.is_authenticated %}
-                    <div class="per-assist-menu">
+                    <div class="quote-menu">
                         <div class="user-menu">
                             <ul>
-                                <li><a href="{% url 'notes:note' %}" role="button">Add note</a></li>
-                                <li><a href="{% url 'notes:tag' %}" role="button">Add tag</a></li>
+                                <li><a href="{% url 'quoteapp:quote' %}" role="button">Add quote</a></li>
+                                <li><a href="{% url 'quoteapp:author' %}" role="button">Add Author</a></li>
+                                <li><a href="{% url 'quoteapp:tag' %}" role="button">Add Tag</a></li>
+                                {% if user.is_superuser %}
+                                    <li><a href="{% url 'quoteapp:scrapy' %}">Pull quotes</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <div class="user-login-menu">
@@ -35,26 +38,24 @@
                         </div>
                     </div>
                     {% else %}
-                    <div class="per-assist-menu">
+                    <div class="quote-menu">
                         <ul>
                             <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
                             <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
                         </ul>
                     </div>
                     {% endif %}  
-                </div>     
-
+                </div>               
             </div>
         </div>          
 
         <div class="row">
             <div class="col-md-8">
-                Contant of main page
-                <!-- {% if rquotes %}
+                {% if rquotes %}
                     <div class="received_quotes">{{rquotes}}</div>
-                {% endif %}  -->
+                {% endif %} 
 
-                <!-- {% for quote in quotes %}
+                {% for quote in quotes %}
                 <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
                     <span class="text" itemprop="text">“{{ quote.quote }}”</span>
                     <span>by <small class="author" itemprop="author">{{quote.author}}</small>
@@ -63,18 +64,18 @@
                     <div class="tags">
                         <meta class="keywords" itemprop="keywords" content="simplicity,understand"> 
                         Tags: 
-                        {#% load extract_tags %}
-                        {% for tag in quote.tags|tags %@}
+                        {% load extract_tags %}
+                        {% for tag in quote.tags|tags %}
                             <a class="tag" href="{% url 'quoteapp:main' %}?tag_id={{tag.id}}">{{tag.name}}</a>
                         {% endfor %}
-                        {#% if user.is_authenticated and user.is_superuser %}
-                        <a href="{#% url 'quoteapp:delete' quote.id %#}" role="button" style="color:rgb(255, 0, 0)"> X </a>
-                        {% endif %#} 
+                        {% if user.is_authenticated and user.is_superuser %}
+                        <a href="{% url 'quoteapp:delete' quote.id %}" role="button" style="color:rgb(255, 0, 0)"> X </a>
+                        {% endif %} 
                     </div>
                 </div>
-                {% endfor %#}        -->
+                {% endfor %}       
 
-                <!-- <nav>
+                <nav>
                     <ul class="pager">
                         
                         <li class="previous">
@@ -95,18 +96,26 @@
                             {% endif %}
                         </li>
                     </ul>
-                </nav> -->
-            
+                </nav>
             </div>
 
-
+            <!-- <div class="col-md-4 scrapy-box">
+                {% if user.is_authenticated and user.is_superuser %}
+                <div class="scrapy_content">
+                    <h2>Scrapy quotes</h2>
+                    <span class="scrapy-item">
+                        <a class="scrapy" style="font-size: 38px" href="{% url 'quoteapp:scrapyng_quotes' %}">Pull quotes</a>
+                    </span>
+                </div>
+                {% endif %} 
+            </div>             -->
 
             <div class="col-md-4 tags-box">
                 <div class="top_ten_tags">
-                    <h2>Sort by tags</h2>
+                    <h2>Top Ten tags</h2>
                     {% for tag in most_used_tags %}
                         <span class="tag-item">
-                            <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'contacts:main' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_quotes }} quotes)
+                            <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'quoteapp:main' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_quotes }} quotes)
                         </span>
                     {% endfor %}
                 </div>
@@ -116,11 +125,11 @@
 
     <footer class="footer">
         <div class="container">
-            <!-- <p class="text-muted">
+            <p class="text-muted">
                 Quotes by: <a href="https://www.goodreads.com/quotes">GoodReads.com</a>
-            </p> -->
+            </p>
             <p class="copyright">
-                Made by <span class="zyte">Pythonic wizards team</span>
+                Made by <span class="zyte"">Vladyslav</span>
             </p>
         </div>
     </footer>
@@ -129,4 +138,3 @@
 
 </body>
 </html>
-
