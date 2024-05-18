@@ -7,12 +7,14 @@ from django.db.models import Count
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def main(request, tag_id=None):
+@login_required
+def notes(request, tag_id=None):
     if request.GET.get('tag_id') != None:
         tag = Tag.objects.get(id=request.GET.get('tag_id'))
         notes = Note.objects.filter(tags=tag)
     else:
         notes = Note.objects.all()
+        print(f"notes111: {notes}")
 
     tag_size_block = list(range(28, 8, -2))
     most_used_tags = get_most_used_tags()
@@ -29,7 +31,7 @@ def main(request, tag_id=None):
         # If page is out of range (e.g. 9999), deliver last page of results.
         notes = paginator.page(paginator.num_pages)
 
-    return render(request, 'contacts/index.html', {"notes": notes, "tag_size_block": tag_size_block, "most_used_tags": most_used_tags})
+    return render(request, 'notes/notes.html', {"notes": notes, "tag_size_block": tag_size_block, "most_used_tags": most_used_tags})
 
 
 @login_required
@@ -73,15 +75,17 @@ def note(request):
     return render(request, 'notes/note.html', {"tags": tags, 'form': NoteForm()})
 
 
+@login_required
 def detail(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
     # author = get_object_or_404(Author, pk=note.author_id)
     return render(request, 'notes/detail.html', {"note": note})
 
 
+@login_required
 def delete_note(request, note_id):
     Note.objects.get(pk=note_id).delete()
-    return redirect(to='contacts:main')
+    return redirect(to='notes:notes')
 
 
 def get_most_used_tags():

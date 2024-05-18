@@ -22,5 +22,5 @@ class Note(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
-        return f"{self.note}"
+        return f"{self.title}"
 
