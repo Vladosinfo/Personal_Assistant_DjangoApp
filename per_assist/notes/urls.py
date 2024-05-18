@@ -8,6 +8,7 @@ urlpatterns = [
     path('tag/', views.tag, name='tag'),
     # path('author/', views.author, name='author'),
     path('note/', views.note, name='note'),
+    path('notes/', views.notes, name='notes'),
     path('detail/<int:note_id>', views.detail, name='detail'),
     # path('author_detail/<int:author_id>', views.author_detail, name='author_detail'),
     path('delete/<int:note_id>', views.delete_note, name='delete'),

@@ -666,6 +666,10 @@
     height: 200%;
   }
 
+  .note .title{
+    font-weight: bold;
+  }
+  
   .note .tags a.remove{
     color:rgb(255, 0, 0);
     font-weight: bold;

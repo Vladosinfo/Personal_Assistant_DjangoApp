@@ -23,6 +23,7 @@
                     <div class="per-assist-menu">
                         <div class="user-menu">
                             <ul>
+                                <li><a href="{% url 'notes:notes' %}" role="button">Notes</a></li>
                                 <li><a href="{% url 'notes:note' %}" role="button">Add note</a></li>
                                 <li><a href="{% url 'notes:tag' %}" role="button">Add tag</a></li>
                             </ul>
@@ -50,52 +51,12 @@
         <div class="row">
             <div class="col-md-8">
                 Contant of main page
-                <!-- {% if rquotes %}
-                    <div class="received_quotes">{{rquotes}}</div>
-                {% endif %}  -->
+                {% block content %} {% endblock %}
 
-                <!-- {% for quote in quotes %}
-                <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
-                    <span class="text" itemprop="text">“{{ quote.quote }}”</span>
-                    <span>by <small class="author" itemprop="author">{{quote.author}}</small>
-                    <a href="{% url 'quoteapp:author_detail' quote.author_id %}">(about)</a>
-                    </span>
-                    <div class="tags">
-                        <meta class="keywords" itemprop="keywords" content="simplicity,understand"> 
-                        Tags: 
-                        {#% load extract_tags %}
-                        {% for tag in quote.tags|tags %@}
-                            <a class="tag" href="{% url 'quoteapp:main' %}?tag_id={{tag.id}}">{{tag.name}}</a>
-                        {% endfor %}
-                        {#% if user.is_authenticated and user.is_superuser %}
-                        <a href="{#% url 'quoteapp:delete' quote.id %#}" role="button" style="color:rgb(255, 0, 0)"> X </a>
-                        {% endif %#} 
-                    </div>
-                </div>
-                {% endfor %#}        -->
 
-                <!-- <nav>
-                    <ul class="pager">
-                        
-                        <li class="previous">
-                            {% if quotes.has_previous %}
-                            <a href="?page=1"><span aria-hidden="true">←←</span> First</a>
-                            <a href="?page={{ quotes.previous_page_number }}"><span aria-hidden="true">←</span> Previous</a>
-                            {% endif %}                        
-                        </li>
-                        
-                        <span class="current">
-                            Page {{ quotes.number }} of {{ quotes.paginator.num_pages }}.
-                        </span>
 
-                        <li class="next">
-                            {% if quotes.has_next %}
-                            <a href="?page={{ quotes.paginator.num_pages }}">Last <span aria-hidden="true">→→</span></a>
-                            <a href="?page={{ quotes.next_page_number }}">Next <span aria-hidden="true">→</span></a>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </nav> -->
+
+
             
             </div>
 
@@ -116,9 +77,6 @@
 
     <footer class="footer">
         <div class="container">
-            <!-- <p class="text-muted">
-                Quotes by: <a href="https://www.goodreads.com/quotes">GoodReads.com</a>
-            </p> -->
             <p class="copyright">
                 Made by <span class="zyte">Pythonic wizards team</span>
             </p>
