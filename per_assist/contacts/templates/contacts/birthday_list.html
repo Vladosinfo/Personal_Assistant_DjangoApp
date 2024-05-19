@@ -1,0 +1,24 @@
+{% extends "contacts/base.html" %}
+
+{% block title %}Birthdays{% endblock %}
+
+{% block content %}
+<nav>
+    <a href="{% url 'contacts:main' %}">Back</a>
+</nav>
+    <h1>Find Contacts with Upcoming Birthdays</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    {% if contacts %}
+        <h2>Contacts with Birthdays in {{ form.cleaned_data.days_ahead }} days:</h2>
+        <ul>
+        {% for contact in contacts %}
+            <li>{{ contact.name }} {{ contact.surname }} - {{ contact.birthday }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

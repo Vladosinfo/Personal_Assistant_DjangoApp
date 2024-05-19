@@ -1,0 +1,13 @@
+{% extends "contacts/base.html" %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<h2>Are you sure you want to delete this contact?</h2>
+<p>{{ contact.name }} {{ contact.surname }} - {{ contact.email }} - {{ contact.phone }} - {{ contact.birthday }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'contacts:main' %}">No, go back</a>
+</form>
+{% endblock %}
