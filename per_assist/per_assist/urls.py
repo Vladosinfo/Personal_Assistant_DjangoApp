@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include('contacts.urls')),
     path('notes/', include('notes.urls')),
     path('users/', include('users.urls')),
+    path('files/', include('files.urls')),
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
