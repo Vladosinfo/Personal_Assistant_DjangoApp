@@ -1,5 +1,11 @@
+{% extends "contacts/base.html" %}
+
+{% block content %}
+
 {% for file in files %}
     <p>{{ file.file.name }} - {{ file.category }}</p>
-    <a href="{% url 'download_file' file_id=file.id %}">Download</a>
-    <a href="{% url 'view_file' file_id=file.id %}">View</a>
+    <a href="{% url 'files:download_file' file_id=file.id %}">Download</a>
+    <a href="{% url 'files:view_file' file_id=file.id %}">View</a>
 {% endfor %}
+
+{% endblock %}

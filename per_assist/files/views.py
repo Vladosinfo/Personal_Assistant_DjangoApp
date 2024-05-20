@@ -13,7 +13,7 @@ def upload_file(request):
             file = form.save(commit=False)
             file.user = request.user
             file.save()
-            return redirect('file_list')
+            return redirect('files:file_list')
     else:
         form = FileUploadForm()
     return render(request, 'upload.html', {'form': form})
