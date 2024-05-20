@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseForbidden, HttpResponse
 from .forms import FileUploadForm
 from .models import File
 
@@ -24,3 +25,24 @@ def file_list(request):
 def filter_files(request, category):
     files = File.objects.filter(user=request.user, category=category)
     return render(request, 'file_list.html', {'files': files})
+
+
+def download_file(request, file_id):
+    file = get_object_or_404(File, id=file_id)
+    if file.user != request.user:
+        return HttpResponseForbidden("You do not have access to this file.")
+
+    with file.file.open('rb') as f:
+        file_data = f.read()
+
+    response = HttpResponse(file_data, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file.file.name}"'
+    return response
+
+
+def view_file(request, file_id):
+    file = get_object_or_404(File, id=file_id)
+    if file.user != request.user:
+        return HttpResponseForbidden("You do not have access to this file.")
+    file_url = file.file.url
+    return redirect(file_url)
