@@ -39,3 +39,9 @@ class NoteForm(ModelForm):
         # exclude = ['tags']
         fields = ['title', 'text']
         exclude = ['tags']
+
+
+class UpdateNoteForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = ['title', 'text', 'tags', 'user']
