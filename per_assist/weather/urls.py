@@ -8,4 +8,5 @@ app_name = 'weather'
 urlpatterns = [
     path('', views.weather_list, name='weather_list'),
     path('weather/', views.weather_list, name='weather_list'),
+    # path('weather/', views.notes, name='notes'),
 ]
