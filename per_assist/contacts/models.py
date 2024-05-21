@@ -10,7 +10,6 @@ class Contact(models.Model):
     phone = models.CharField(max_length=20, null=False)
     birthday = models.DateField(null=False)
     address = models.CharField(max_length=250, null=True)
-    additional = models.CharField(max_length=1100, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     objects = ContactManager()

@@ -28,10 +28,7 @@ def contacts_with_upcoming_birthdays(request):
         if form.is_valid():
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
-            print(start_date)
-            print(end_date)
             contacts = Contact.objects.get_birthdays_in_range(start_date, end_date)
-            print(contacts)
     else:
         form = DateRangeForm()
     return render(request, 'contacts/birthday_list.html', {'form': form, 'contacts': contacts})
