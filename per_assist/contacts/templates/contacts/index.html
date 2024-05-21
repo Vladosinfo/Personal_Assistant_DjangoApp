@@ -4,6 +4,7 @@
     <meta charset="UTF-8"/>
     <title>Personal assistant</title>
     {% load static %}
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
     <link rel="stylesheet" href="{% static 'contacts/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'contacts/main.css' %}">
 </head>
@@ -11,12 +12,12 @@
 
     <div class="container">
         <div class="row header-box">
-            <div class="col-md-3">
-                <h1> Main page
-                    <!-- <a href="/" style="text-decoration: none">Quotes</a> -->
-                </h1>
+            <div class="col-md-2">
+                <h2>
+                    <a href="/" style="text-decoration: none">Personal<br>assistant</a>
+                </h2>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
 
                 <div class="per-assist-menu-container">
                     {% if user.is_authenticated %}
@@ -53,29 +54,26 @@
         </div>          
 
         <div class="row">
-            <div class="col-md-8">
-                Contant of main page
-                {% block content %} {% endblock %}
-
-
-
-
-
             
-            </div>
-
-
-
-            <div class="col-md-4 tags-box">
+            <div class="col-md-2 tags-box" vstyle="border:1px solid red">
+                {% if request_path == "/notes/" or request_path == "/notes/notes/" %}
                 <div class="top_ten_tags">
-                    <h2>Sort by tags</h2>
+                    <h3>Sort by tags</h3>
                     {% for tag in most_used_tags %}
                         <span class="tag-item">
-                            <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'contacts:main' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_quotes }} quotes)
+                            <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'notes:notes' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_notes }} notes)
                         </span>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
+
+            <div class="col-md-10">
+                
+                {% block content %} {% endblock %}
+
+            </div>
+
         </div>
     </div>
 

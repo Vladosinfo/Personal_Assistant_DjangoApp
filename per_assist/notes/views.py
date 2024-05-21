@@ -17,6 +17,7 @@ def notes(request, tag_id=None):
 
     tag_size_block = list(range(28, 8, -2))
     most_used_tags = get_most_used_tags(request)
+    request_path = request.path
 
     # Pagination
     paginator = Paginator(notes, 10)
@@ -30,7 +31,7 @@ def notes(request, tag_id=None):
         # If page is out of range (e.g. 9999), deliver last page of results.
         notes = paginator.page(paginator.num_pages)
 
-    return render(request, 'notes/notes.html', {"notes": notes, "tag_size_block": tag_size_block, "most_used_tags": most_used_tags})
+    return render(request, 'notes/notes.html', {"notes": notes, "tag_size_block": tag_size_block, "most_used_tags": most_used_tags, "request_path": request_path})
 
 
 @login_required

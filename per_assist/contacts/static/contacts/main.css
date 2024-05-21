@@ -8,7 +8,7 @@ body {
 }
 
 .tags-box, .scrapy-box {
-  text-align: right;
+  text-align: left;
 }
 
 .tags-box h2, .scrapy-box h2 {
@@ -139,8 +139,8 @@ ul.pager {
 }
 
 .per-assist-menu .user-menu{
-  width: 60%;
-  text-align: right;
+  /* width: 60%; */
+  text-align: left;
 }
 
 .per-assist-menu .user-login-menu{
