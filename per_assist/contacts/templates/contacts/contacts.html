@@ -25,7 +25,6 @@
 </style>
 <nav>
     <button type="submit" onclick="window.location.href = {% url 'contacts:add_contact' %}">Add new contact</button>
-    <button type="submit" onclick="window.location.href ={% url 'contacts:contacts_with_upcoming_birthdays' %}">Birthdays in:</button>
 </nav>
 
 <form method="post" action="{% url 'contacts:search_contacts' %}">
