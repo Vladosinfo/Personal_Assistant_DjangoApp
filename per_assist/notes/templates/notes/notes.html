@@ -1,6 +1,8 @@
-{% extends "contacts/base.html" %}
+{% extends "contacts/index.html" %}
 
-{% block content %}        
+{% block content %}       
+
+<h3>List of notes</h3>
 
 <div class="row">
     <div class="col-md-8">
@@ -52,17 +54,6 @@
                 </li>
             </ul>
         </nav>
-    </div>
-
-    <div class="col-md-4 tags-box">
-        <div class="top_ten_tags">
-            <h2>Top Ten tags</h2>
-            {% for tag in most_used_tags %}
-                <span class="tag-item">
-                    <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'notes:notes' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_notes }} notes)
-                </span>
-            {% endfor %}
-        </div>
     </div>
 </div>
 
