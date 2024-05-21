@@ -11,9 +11,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def notes(request, tag_id=None):
     if request.GET.get('tag_id') != None:
         tag = Tag.objects.get(id=request.GET.get('tag_id'))
-        notes = Note.objects.filter(tags=tag, user=request.user)
+        notes = Note.objects.filter(tags=tag, user=request.user).order_by('-id')
     else:
-        notes = Note.objects.filter(user=request.user)
+        notes = Note.objects.filter(user=request.user).order_by('-id')
 
     tag_size_block = list(range(28, 8, -2))
     most_used_tags = get_most_used_tags(request)
@@ -31,7 +31,21 @@ def notes(request, tag_id=None):
         # If page is out of range (e.g. 9999), deliver last page of results.
         notes = paginator.page(paginator.num_pages)
 
+    # context = {
+    #     "notes": notes,
+    #     "tag_size_block": tag_size_block,
+    #     "most_used_tags": most_used_tags,
+    #     "request_path": request.path,
+    # }
+
+    # return render(request, 'notes/notes.html', {"context": context})
     return render(request, 'notes/notes.html', {"notes": notes, "tag_size_block": tag_size_block, "most_used_tags": most_used_tags, "request_path": request_path})
+
+
+@login_required
+def tags(request):
+    tags = Tag.objects.filter(user=request.user).order_by('-id')
+    return render(request, 'notes/tags.html', {"tags": tags })
 
 
 @login_required
@@ -42,11 +56,29 @@ def tag(request):
             tag = form.save(commit=False)
             tag.user = request.user
             form.save()
-            return redirect(to='contacts:main')
+            return redirect(to='notes:tags')
         else:
             return render(request, 'notes/tag.html', {'form': form})
 
     return render(request, 'notes/tag.html', {'form': TagForm()})
+
+
+def update_tag(request, tag_id):
+    tag = get_object_or_404(Tag, id=tag_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = TagForm(request.POST, instance=tag)
+        if form.is_valid():
+            tag = form.save(commit=False)
+            tag.user = request.user
+            form.save()
+            return redirect(to='notes:tags')
+        else:
+            return render(request, 'notes/tags.html', {'form': form})
+    else:
+        form = TagForm(instance=tag)
+
+    return render(request, 'notes/update_tag.html', {'tag': tag, 'form': form})
 
 
 @login_required
@@ -69,7 +101,7 @@ def note(request):
 
             # new_note.save()
 
-            return redirect(to='contacts:main')
+            return redirect(to='notes:notes')
         else:
             return render(request, 'notes/note.html', {"tags": tags, 'form': form})
 
@@ -78,7 +110,7 @@ def note(request):
 
 @login_required
 def detail(request, note_id):
-    note = get_object_or_404(Note, pk=note_id)
+    note = get_object_or_404(Note, pk=note_id, user=request.user)
     # author = get_object_or_404(Author, pk=note.author_id)
     return render(request, 'notes/detail.html', {"note": note})
 

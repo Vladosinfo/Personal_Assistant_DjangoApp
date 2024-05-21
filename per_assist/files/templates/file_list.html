@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<a href="{% url 'files:upload_file' %}" role="button">Upload new file</a></br></br>
+
 {% for file in files %}
     <p>{{ file.file.name }} - {{ file.category }}</p>
     <a href="{% url 'files:download_file' file_id=file.id %}">Download</a>
