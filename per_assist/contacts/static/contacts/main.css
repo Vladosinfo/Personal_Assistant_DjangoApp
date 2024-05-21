@@ -3,6 +3,10 @@ body {
   font-family: sans-serif;
 }
 
+.container{
+  margin-bottom: 100px;
+}
+
 .container .text-muted {
   margin: 20px 0;
 }

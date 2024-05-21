@@ -4,6 +4,9 @@
 
 <h3>List of notes</h3>
 
+<a href="{% url 'notes:note' %}" role="button">Add new note</a>
+<a href="{% url 'notes:tag' %}" role="button">Add new tag</a>
+
 <div class="row">
     <div class="col-md-8">
         {% if rnotes %}
@@ -11,8 +14,8 @@
         {% endif %} 
 
         {% for note in notes %}
-        <div class="note" itemscope="" itemtype="http://schema.org/CreativeWork">
-            <div class="title" itemprop="text">{{ note.title }}</div>
+        <div class="note" itemscope="" itemtype="http://schema.org/CreativeWork" style="border:1px solid #7CA3E6; border-radius: 10px; padding: 10px; margin:bottom 20px">
+            <div class="title" itemprop="text"><a href="{% url 'notes:detail' note.id %}">{{ note.title }}</a></div>
             <div class="text" itemprop="text">{{ note.text }}</div>
             <div class="tags">
                 <meta class="keywords" itemprop="keywords" content="simplicity,understand"> 
@@ -29,7 +32,7 @@
                 <a href="{% url 'notes:update' note.id %}" role="button" style="color:rgb(0, 255, 60)"> U </a>
                 {% endif %}                 
             </div>
-        </div>
+        </div></br>
         {% endfor %}       
 
         <nav>
