@@ -18,11 +18,11 @@
 {% for file in files %}
     <div>
         {% if file.is_image %}
-            <img src="{{ file.file.url }}" alt="{{ file.file.name }}" style="max-width: 100px; max-height: 100px;">
+            <img src="{{ file.file.url }}" alt="{{ file.basename }}" style="max-width: 100px; max-height: 100px;">
         {% else %}
-            <img src="{% static 'files/icons/' %}{{ file.icon }}" alt="{{ file.file.name }}" style="max-width: 50px; max-height: 50px;">
+            <img src="{% static 'files/icons/' %}{{ file.icon }}" alt="{{ file.basename }}" style="max-width: 50px; max-height: 50px;">
         {% endif %}
-        <p>{{ file.file.name }} - {{ file.category }}</p>
+        <p>{{ file.basename }} - {{ file.category }}</p>
         <a href="{% url 'files:download_file' file_id=file.id %}">Download</a>
         <a href="{% url 'files:view_file' file_id=file.id %}">View</a>
         <a href="{% url 'files:delete_file' file_id=file.id %}">Delete</a>

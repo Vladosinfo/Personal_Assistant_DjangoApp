@@ -29,6 +29,7 @@ class File(models.Model):
             'pdf': 'pdf_icon.png',
             'doc': 'doc_icon.png',
             'docx': 'doc_icon.png',
+            'xls': 'xls_icon.png',
             # ====================
         }
         return icon_dict.get(extension, 'default_icon.png')

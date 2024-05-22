@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponse
@@ -26,6 +27,9 @@ def file_list(request):
 
     if category:
         files = files.filter(category=category)
+
+    for file in files:
+        file.basename = os.path.basename(file.file.name)
 
     return render(request, 'file_list.html', {'files': files, 'categories': categories})
 
