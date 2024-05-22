@@ -20,7 +20,7 @@
         {% if file.is_image %}
             <img src="{{ file.file.url }}" alt="{{ file.basename }}" style="max-width: 100px; max-height: 100px;">
         {% else %}
-            <img src="{% static 'files/icons/' %}{{ file.icon }}" alt="{{ file.basename }}" style="max-width: 50px; max-height: 50px;">
+            <img src="{% static 'files/icons/' %}{{ file.icon }}" alt="{{ file.basename }}" style="max-width: 100px; max-height: 100px;">
         {% endif %}
         <p>{{ file.basename }} - {{ file.category }}</p>
         <a href="{% url 'files:download_file' file_id=file.id %}">Download</a>
