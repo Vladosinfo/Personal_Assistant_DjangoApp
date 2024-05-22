@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q, Func, Value, CharField
+from datetime import datetime, timedelta
 
 
 class MonthDay(Func):
@@ -10,7 +11,8 @@ class MonthDay(Func):
 
 class ContactManager(models.Manager):
     def get_birthdays_in_days(self, days):
-        start_date = timezone.now().date()
+        # start_date = timezone.now().date()
+        start_date = datetime.now().date()
         end_date = start_date + timedelta(days=days)
         start_str = start_date.strftime('%m-%d')
         end_str = end_date.strftime('%m-%d')
