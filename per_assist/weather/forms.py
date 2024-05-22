@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, TextInput, TextField, Textarea
+from django.forms import ModelForm, CharField
 from .models import Weather
 
 

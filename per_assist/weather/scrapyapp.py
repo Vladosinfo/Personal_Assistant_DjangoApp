@@ -6,7 +6,7 @@ from scrapy.item import Item, Field
 
 class NewItem(Item):
     cur_date = Field()
-    min_temperature =   Field()
+    min_temperature = Field()
     max_temperature = Field()
 
 # class NewItemSport(Item):
@@ -62,7 +62,7 @@ class QuotesSpider(scrapy.Spider):
             max_temperature = q.xpath("div[@class='temperature']/div[@class='max']/span/text()").get().strip()
 
             yield NewItem(cur_date=cur_date, min_temperature=min_temperature, max_temperature=max_temperature)
-
+            print(cur_date)
 # class QuotesSpiderSport(scrapy.Spider):
 #     name = "get_news_sport"
 #     allowed_domains = ["www.volleyball.ua"]
