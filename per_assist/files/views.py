@@ -21,7 +21,13 @@ def upload_file(request):
 
 def file_list(request):
     files = File.objects.filter(user=request.user)
-    return render(request, 'file_list.html', {'files': files})
+    categories = File.objects.filter(user=request.user).values_list('category', flat=True).distinct()
+    category = request.GET.get('category')
+
+    if category:
+        files = files.filter(category=category)
+
+    return render(request, 'file_list.html', {'files': files, 'categories': categories})
 
 
 def filter_files(request, category):
@@ -48,3 +54,11 @@ def view_file(request, file_id):
         return HttpResponseForbidden("You do not have access to this file.")
     file_url = file.file.url
     return redirect(file_url)
+
+
+def delete_file(request, file_id):
+    file = get_object_or_404(File, id=file_id)
+    if file.user != request.user:
+        return HttpResponseForbidden("You do not have access to this file.")
+    file.delete()
+    return redirect('files:file_list')
