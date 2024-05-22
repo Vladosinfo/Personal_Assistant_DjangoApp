@@ -4,8 +4,12 @@
 
 <div>
     Not bad
-
+    {% for item in weather_get %}
+    <div style="width:170px;">
+        <div style="margin-bottom: 5px; border:1px solid #7CA3E6; border-radius: 10px; padding: 5px; margin:bottom 20px" class="title" itemprop="text">
+        {{ cur_day.name }}
+        </div>
+    </div>
+    {% endfor %}
 </div>
-
-
 {% endblock %}

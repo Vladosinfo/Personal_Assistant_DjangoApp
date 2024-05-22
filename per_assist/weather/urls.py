@@ -6,7 +6,7 @@ from . import views
 app_name = 'weather'
 
 urlpatterns = [
-    path('', views.weather_list, name='weather_list'),
+    path('', views.weather_get, name='weather_get'),
     # path('weather/', views.weather_list, name='weather_list'),
     path('weather/', views.weather_get, name='weather_get'),
     # path('weather/', views.notes, name='notes'),
