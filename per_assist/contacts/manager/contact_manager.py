@@ -9,7 +9,9 @@ class MonthDay(Func):
 
 
 class ContactManager(models.Manager):
-    def get_birthdays_in_range(self, start_date, end_date):
+    def get_birthdays_in_days(self, days):
+        start_date = timezone.now().date()
+        end_date = start_date + timedelta(days=days)
         start_str = start_date.strftime('%m-%d')
         end_str = end_date.strftime('%m-%d')
 
