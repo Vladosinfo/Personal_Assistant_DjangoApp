@@ -18,7 +18,7 @@ class File(models.Model):
 
     @property
     def is_image(self):
-        return self.file.name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))
+        return self.file.name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', 'jfif'))
 
     @property
     def icon(self):
