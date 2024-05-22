@@ -52,7 +52,7 @@ cur.close()
 conn.close()
 @login_required
 def weather_get(request):
-    weather_get = Weather.objects.filter(id=request.id).order_by('cur_day')
+    weather_get = Weather.objects.filter(id=request.id).order_by('id')
     return render(request, 'weather/weather_list.html', {"weather_get": weather_get})
     # if request.method == 'POST':
     #     form = WeatherForm(request.POST)
