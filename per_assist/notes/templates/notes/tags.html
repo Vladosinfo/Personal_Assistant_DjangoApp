@@ -1,0 +1,14 @@
+{% extends "contacts/index.html" %}
+
+{% block content %}
+
+Tags: <a href="{% url 'notes:tag' %}" role="button">Add new tag</a>
+{% for tag in tags %}
+<div style="width:170px;">
+    <div style="margin-bottom: 5px; border:1px solid #7CA3E6; border-radius: 10px; padding: 5px; margin:bottom 20px" class="title" itemprop="text">
+        {{ tag.name }} &nbsp;<a href="{% url 'notes:updatet' tag.id %}">edit</a>
+    </div>      
+</div>
+{% endfor %}   
+
+{% endblock %}

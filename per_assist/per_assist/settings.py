@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'users',
     'files',
     'storages',
+    'weather',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,13 @@
-{% extends "contacts/base.html" %} {% load extract_tags %} {% block content %}
+{% extends "contacts/index.html" %} {% load extract_tags_detail %} 
 
-<p>Note: <b>{{note.note}}</b></p>
-<!-- <p>Author: <a href="{% url 'quoteapp:author_detail' author.id %}" role="button" class="outline">{{quote.author}}</a></p> -->
-<p>Tags: <small> {{ note.tags|tags }} </small></p>
+{% block content %}
 
+
+<p>Title: <b>{{note.title}}</b>
+    {% if user.is_authenticated %}
+    <a href="{% url 'notes:update' note.id %}">update</a>
+    {% endif %}      
+</p>
+<p>Note: {{note.text}}</p>
+<p>Tags: <small> {{ note.tags.all|format_tags }} </small></p>
 {% endblock %}
