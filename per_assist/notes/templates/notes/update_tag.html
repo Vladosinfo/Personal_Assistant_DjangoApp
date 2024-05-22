@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<form method="POST" action="{% url 'notes:tag' %}">
+<form method="POST" action="{% url 'notes:update_tag' tag.id %}">
     {% csrf_token %}
     <div style="padding: 10px">
-        <label>Enter the tag name:
+        <label>Change the tag name:
             {{form.name}}
         </label>
         <span>{{ form.errors.name }}</span>

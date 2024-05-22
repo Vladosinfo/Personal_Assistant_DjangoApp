@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from datetime import timedelta
 from .models import Contact
-from .forms import DateRangeForm, ContactSearchForm, ContactForm
+from .forms import DaysAheadForm, ContactSearchForm, ContactForm
 
 
 def main(request):
@@ -17,24 +17,23 @@ def contact_book(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'contacts/contacts.html', {'page_obj': page_obj})
-
-
-@login_required
-def contacts_with_upcoming_birthdays(request):
-    contacts = None
-    if request.method == 'POST':
-        form = DateRangeForm(request.POST)
+    if request.method == 'GET' and 'days_ahead' in request.GET:
+        form = DaysAheadForm(request.GET)
         if form.is_valid():
-            start_date = form.cleaned_data['start_date']
-            end_date = form.cleaned_data['end_date']
-            print(start_date)
-            print(end_date)
-            contacts = Contact.objects.get_birthdays_in_range(start_date, end_date)
-            print(contacts)
+            days_ahead = form.cleaned_data['days_ahead']
+        else:
+            days_ahead = 30
     else:
-        form = DateRangeForm()
-    return render(request, 'contacts/birthday_list.html', {'form': form, 'contacts': contacts})
+        form = DaysAheadForm(initial={'days_ahead': 30})
+        days_ahead = 30
+
+    upcoming_birthdays = get_upcoming_birthdays(request, days_ahead)
+
+    request_path = request.path
+    return render(request, 'contacts/contacts.html', {'page_obj': page_obj,
+                                                      "upcoming_birthdays": upcoming_birthdays,
+                                                      "request_path": request_path,
+                                                      "days_ahead_form": form})
 
 
 @login_required
@@ -95,3 +94,12 @@ def delete_contact(request, pk):
         contact.delete()
         return redirect('contacts:contact_book')
     return render(request, 'contacts/confirm_delete.html', {'contact': contact})
+
+
+def get_upcoming_birthdays(request, days_ahead):
+    try:
+        days_ahead = int(days_ahead)
+    except ValueError:
+        days_ahead = 30
+    upcoming_birthdays = Contact.objects.get_birthdays_in_days(days_ahead)
+    return upcoming_birthdays

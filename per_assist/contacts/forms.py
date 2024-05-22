@@ -2,9 +2,14 @@ from django import forms
 from .models import Contact
 
 
-class DateRangeForm(forms.Form):
-    start_date = forms.DateField(label='Start Date', widget=forms.DateInput(attrs={'type': 'date'}))
-    end_date = forms.DateField(label='End Date', widget=forms.DateInput(attrs={'type': 'date'}))
+class DaysAheadForm(forms.Form):
+    days_ahead = forms.IntegerField(
+        label='Days Ahead',
+        min_value=1,
+        initial=30,
+        required=True,
+        help_text='Enter the number of days ahead to check for upcoming birthdays.'
+    )
 
 
 class ContactSearchForm(forms.Form):
@@ -20,6 +25,8 @@ class ContactSearchForm(forms.Form):
 
 
 class ContactForm(forms.ModelForm):
+    birthday = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
     class Meta:
         model = Contact
-        fields = ['name', 'surname', 'email', 'phone', 'birthday', 'address', 'additional']
+        fields = ['name', 'surname', 'email', 'phone', 'birthday', 'address']

@@ -48,14 +48,14 @@
                             <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
                         </ul>
                     </div>
-                    {% endif %}
-                </div>
+                    {% endif %}  
+                </div>     
 
             </div>
-        </div>
+        </div>          
 
         <div class="row">
-
+            
             <div class="col-md-3 tags-box" vstyle="border:1px solid red">
                 {% if request_path == "/notes/" or request_path == "/notes/notes/" %}
                 <div class="top_ten_tags">
@@ -84,7 +84,7 @@
             </div>
 
             <div class="col-md-9">
-
+                
                 {% block content %} {% endblock %}
 
             </div>
