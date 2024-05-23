@@ -3,12 +3,12 @@
 {% block content %}
 
 <div>
+    Weather <a href="{% url 'notes:tag' %}" role="button">views weather</a>
     Not bad
     {% for item in weather_get %}
-    <div style="width:170px;">
+    <div style="width: 170px">
         <div style="margin-bottom: 5px; border:1px solid #7CA3E6; border-radius: 10px; padding: 5px; margin:bottom 20px" class="title" itemprop="text">
-            {{cur_day.name}} <a href="{% url 'weather:weather_get' id %}">edit</a>
-
+            
         </div>
     </div>
     {% endfor %}
