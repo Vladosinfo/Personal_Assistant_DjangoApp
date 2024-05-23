@@ -2,7 +2,7 @@ import json
 import psycopg2
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import WeatherForm
+# from .forms import WeatherForm
 from .models import Weather
 from .scrapyapp import DataPipline
 
@@ -39,12 +39,16 @@ cur = conn.cursor()
 with open('weather/weather.json', 'r', encoding='utf-8') as fd:
     data = json.load(fd)
 
-# for item in data:
-#     cur.execute(
-#         "INSERT INTO weather_weather (cur_day, min_temperature, max_temperature) VALUES (%s, %s, %s)",
-#         (item['cur_date'], item['min_temperature'], item['max_temperature'])
-#
-# )
+for item in data:
+    try:
+        cur.execute(
+            "INSERT INTO weather_weather (cur_day, min_temperature, max_temperature) VALUES (%s, %s, %s)",
+            (item['cur_date'], item['min_temperature'], item['max_temperature'])
+
+        )
+    except psycopg2.errors.UniqueViolation:
+
+        print('psycopg2.errors.UniqueViolation')
 
 conn.commit()
 
@@ -52,7 +56,7 @@ cur.close()
 conn.close()
 @login_required
 def weather_get(request):
-    weather_get = Weather.objects.filter(id=request.id).order_by('id')
+    weather_get = Weather.objects.filter(cur_day = request.weather).order_by('cur_day')
     return render(request, 'weather/weather_list.html', {"weather_get": weather_get})
     # if request.method == 'POST':
     #     form = WeatherForm(request.POST)
