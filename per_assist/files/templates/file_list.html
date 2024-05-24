@@ -24,7 +24,7 @@
         {% endif %}
         <p>{{ file.basename }} - {{ file.category }}</p>
         <a href="{% url 'files:download_file' file_id=file.id %}">Download</a>
-        <a href="{% url 'files:view_file' file_id=file.id %}">View</a>
+        <a href="{% url 'files:view_file' file_id=file.id %}" target="_blank">View</a>
         <a href="{% url 'files:delete_file' file_id=file.id %}">Delete</a>
     </div>
 {% endfor %}

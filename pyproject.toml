@@ -13,6 +13,7 @@ psycopg2 = "^2.9.9"
 django-storages = "^1.14.3"
 boto3 = "^1.34.108"
 scrapy = "^2.11.2"
+requests = "^2.32.2"
 django-phonenumber-field = "^7.3.0"
 
 
