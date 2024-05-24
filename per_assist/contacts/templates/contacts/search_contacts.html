@@ -19,5 +19,18 @@
             <li>{{ contact.name }} {{ contact.surname }} - {{ contact.phone }} - {{ contact.email }}</li>
         {% endfor %}
         </ul>
+        {% if contacts.has_other_pages %}
+        <div class="pagination">
+            {% if contacts.has_previous %}
+                <a href="?page=1{% if form.find_contact_criteria.value %}&criteria={{ form.find_contact_criteria.value }}{% endif %}{% if form.find_contact_value.value %}&value={{ form.find_contact_value.value }}{% endif %}">&laquo; First</a>
+                <a href="?page={{ contacts.previous_page_number }}{% if form.find_contact_criteria.value %}&criteria={{ form.find_contact_criteria.value }}{% endif %}{% if form.find_contact_value.value %}&value={{ form.find_contact_value.value }}{% endif %}">Previous</a>
+            {% endif %}
+            <span class="current">Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.</span>
+            {% if contacts.has_next %}
+                <a href="?page={{ contacts.next_page_number }}{% if form.find_contact_criteria.value %}&criteria={{ form.find_contact_criteria.value }}{% endif %}{% if form.find_contact_value.value %}&value={{ form.find_contact_value.value }}{% endif %}">Next</a>
+                <a href="?page={{ contacts.paginator.num_pages }}{% if form.find_contact_criteria.value %}&criteria={{ form.find_contact_criteria.value }}{% endif %}{% if form.find_contact_value.value %}&value={{ form.find_contact_value.value }}{% endif %}">Last &raquo;</a>
+            {% endif %}
+        </div>
+    {% endif %}
     {% endif %}
 {% endblock %}
