@@ -75,14 +75,14 @@ def search_contacts(request):
     contacts = []
 
     if criteria and value:
-        if search_criteria == 'name':
-            contacts = Contact.objects.filter(name__icontains=search_value)
-        elif search_criteria == 'surname':
-            contacts = Contact.objects.filter(surname__icontains=search_value)
-        elif search_criteria == 'phone':
-            contacts = Contact.objects.filter(phone__icontains=search_value)
-        elif search_criteria == 'email':
-            contacts = Contact.objects.filter(email__icontains=search_value)
+        if criteria == 'name':
+            contacts = Contact.objects.filter(name__icontains=value)
+        elif criteria == 'surname':
+            contacts = Contact.objects.filter(surname__icontains=value)
+        elif criteria == 'phone':
+            contacts = Contact.objects.filter(phone__icontains=value)
+        elif criteria == 'email':
+            contacts = Contact.objects.filter(email__icontains=value)
     
     paginator = Paginator(contacts, 10)
     page_obj = paginator.get_page(page_number)
