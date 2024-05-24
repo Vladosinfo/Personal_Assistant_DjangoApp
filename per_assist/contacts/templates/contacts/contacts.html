@@ -27,20 +27,6 @@
     <button type="submit" onclick="window.location.href = {% url 'contacts:add_contact' %}">Add new contact</button>
 </nav>
 
-<form method="post" action="{% url 'contacts:search_contacts' %}">
-    {% csrf_token %}
-    <label for="id_find_contact_criteria">Search by:</label>
-    <select name="find_contact_criteria" id="id_find_contact_criteria">
-        <option value="name">Name</option>
-        <option value="surname">Surname</option>
-        <option value="phone">Phone</option>
-        <option value="email">Email</option>
-    </select>
-    <label for="id_find_contact_value">Enter value:</label>
-    <input type="text" name="find_contact_value" id="id_find_contact_value">
-    <button type="submit">Search</button>
-</form>
-
 <ul>
     {% for contact in page_obj %}
         <li class="contact-item">
