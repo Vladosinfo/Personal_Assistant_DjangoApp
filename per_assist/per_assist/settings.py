@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'files',
     'storages',
     'weather',
+    'exchange_rates',
 ]
 
 MIDDLEWARE = [

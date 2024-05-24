@@ -27,4 +27,5 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('files/', include('files.urls')),
     path('weather/', include('weather.urls')),
+    path('exchange_rates/', include('exchange_rates.urls')),
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

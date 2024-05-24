@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Exchange_rates
 
-# Register your models here.
+admin.site.register(Exchange_rates)
