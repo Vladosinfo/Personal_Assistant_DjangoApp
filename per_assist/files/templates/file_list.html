@@ -1,4 +1,5 @@
 {% extends "contacts/index.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -15,10 +16,17 @@
 </form>
 
 {% for file in files %}
-    <p>{{ file.file.name }} - {{ file.category }}</p>
-    <a href="{% url 'files:download_file' file_id=file.id %}">Download</a>
-    <a href="{% url 'files:view_file' file_id=file.id %}">View</a>
-    <a href="{% url 'files:delete_file' file_id=file.id %}">Delete</a>
+    <div>
+        {% if file.is_image %}
+            <img src="{{ file.file.url }}" alt="{{ file.basename }}" style="max-width: 100px; max-height: 100px;">
+        {% else %}
+            <img src="{% static 'files/icons/' %}{{ file.icon }}" alt="{{ file.basename }}" style="max-width: 100px; max-height: 100px;">
+        {% endif %}
+        <p>{{ file.basename }} - {{ file.category }}</p>
+        <a href="{% url 'files:download_file' file_id=file.id %}">Download</a>
+        <a href="{% url 'files:view_file' file_id=file.id %}">View</a>
+        <a href="{% url 'files:delete_file' file_id=file.id %}">Delete</a>
+    </div>
 {% endfor %}
 
 {% endblock %}

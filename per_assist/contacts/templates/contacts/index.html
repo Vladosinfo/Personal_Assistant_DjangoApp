@@ -58,8 +58,25 @@
             
             <div class="col-md-3 tags-box" vstyle="border:1px solid red">
                 {% if request_path == "/notes/" or request_path == "/notes/notes/" %}
+
+                <div class="search_notes">
+                    <h4>Search notes</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div>
+                            <label for="{{ form.find_note_criteria.id_for_label }}">Search by:</label>
+                            {{ form.find_note_criteria }}
+                        </div>
+                        <div>
+                            <label for="{{ form.find_note_value.id_for_label }}">Enter value:</label>
+                            {{ form.find_note_value }}
+                        </div>
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+
                 <div class="top_ten_tags">
-                    <h3>Sort by tags</h3>
+                    <h4>Sort notes by tags</h4>
                     {% for tag in most_used_tags %}
                         <span class="tag-item">
                             <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'notes:notes' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_notes }} notes)

@@ -3,11 +3,11 @@
 {% block content %}
 
 
-<p>Title: <b>{{note.title}}</b>
+<p><b>{{note.title}}</b>
     {% if user.is_authenticated %}
     <a href="{% url 'notes:update' note.id %}">update</a>
     {% endif %}      
 </p>
-<p>Note: {{note.text}}</p>
+<p>{{note.text}}</p>
 <p>Tags: <small> {{ note.tags.all|format_tags }} </small></p>
 {% endblock %}

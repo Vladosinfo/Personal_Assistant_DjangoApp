@@ -1,3 +1,5 @@
+import os
+from urllib.parse import quote
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponse
@@ -27,6 +29,9 @@ def file_list(request):
     if category:
         files = files.filter(category=category)
 
+    for file in files:
+        file.basename = os.path.basename(file.file.name)
+
     return render(request, 'file_list.html', {'files': files, 'categories': categories})
 
 
@@ -43,8 +48,11 @@ def download_file(request, file_id):
     with file.file.open('rb') as f:
         file_data = f.read()
 
+    filename = os.path.basename(file.file.name)
+    encoded_filename = quote(filename.encode('utf-8'))
+
     response = HttpResponse(file_data, content_type='application/octet-stream')
-    response['Content-Disposition'] = f'attachment; filename="{file.file.name}"'
+    response['Content-Disposition'] = f'attachment; filename="{encoded_filename}"; filename*=utf-8\'\'{encoded_filename}'
     return response
 
 
