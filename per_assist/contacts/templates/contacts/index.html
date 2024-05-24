@@ -91,39 +91,26 @@
                             {{ days_ahead_form.as_p }}
                             <button type="submit" class="btn btn-primary">Check</button>
                         </form>
+                        <h5>Birthdays in 7 days</h5>
                         <ul>
-                            {% for contact in upcoming_birthdays|slice:":3" %}
+                            {% for contact in upcoming_birthdays %}
                                 <li>{{ contact.name }} {{ contact.surname }} - {{ contact.birthday }}</li>
                             {% endfor %}
                         </ul>
-                        {% if upcoming_birthdays|length > 3 %}
-                            <a href="{% url 'contacts:birthday_list' %}?days_ahead={{ days_ahead_form.days_ahead.value }}&page=1" class="btn btn-primary">See more</a>
-                        {% endif %}
                     </div>
                     <div class="search_contacts">
                         <h4>Search Contacts</h4>
-                        <form method="post">
-                            {% csrf_token %}
+                        <form method="get">
                             <div>
                                 <label for="{{ search_form.find_contact_criteria.id_for_label }}">Search by:</label>
-                                {{ search_form.find_contact_criteria }}
+                                    {{ search_form.find_contact_criteria }}
                             </div>
                             <div>
                                 <label for="{{ search_form.find_contact_value.id_for_label }}">Enter value:</label>
-                                {{ search_form.find_contact_value }}
+                                    {{ search_form.find_contact_value }}
                             </div>
-                        <button type="submit">Search</button>
-                    </form>
-                        <ul>
-                            {% for contact in search_results|slice:":3" %}
-                                <li>{{ contact.name }} {{ contact.surname }} - {{ contact.email }} - {{ contact.phone }}</li>
-                            {% empty %}
-                                <li>No contacts found.</li>
-                            {% endfor %}
-                        </ul>
-                        {% if search_results|length > 3 %}
-                            <a href="{% url 'contacts:search_contacts' %}?criteria={{ search_form.find_contact_criteria.value }}&value={{ search_form.find_contact_value.value }}&page=1" class="btn btn-primary">See more</a>
-                        {% endif %}
+                            <button type="submit">Search</button>
+                        </form>
                     </div>
                 {% endif %}
             </div>
