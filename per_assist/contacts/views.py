@@ -17,79 +17,37 @@ def contact_book(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    if request.method == 'GET' and 'days_ahead' in request.GET:
-        form = DaysAheadForm(request.GET)
-        if form.is_valid():
-            days_ahead = form.cleaned_data['days_ahead']
-        else:
-            days_ahead = 7
-    else:
-        form = DaysAheadForm(initial={'days_ahead': 7})
-        days_ahead = 7
+    days_ahead_form = DaysAheadForm(request.GET or None)
+    upcoming_birthdays = get_upcoming_birthdays(7)
+    if 'days_ahead' in request.GET:
+        days_ahead_form = DaysAheadForm(request.GET)
+        if days_ahead_form.is_valid():
+            days_ahead = days_ahead_form.cleaned_data['days_ahead']
+            contact_list = contact_list.filter(id__in=[contact.id for contact in get_upcoming_birthdays(days_ahead)])
 
-    upcoming_birthdays = get_upcoming_birthdays(request, days_ahead)
     
-    search_form = ContactSearchForm()
-
-    search_results = []
-
-    if request.method == 'POST':
-        search_form = ContactSearchForm(request.POST)
+    search_form = ContactSearchForm(request.GET or None)
+    if 'find_contact_criteria' in request.GET and 'find_contact_value' in request.GET:
+        search_form = ContactSearchForm(request.GET)
         if search_form.is_valid():
             search_criteria = search_form.cleaned_data['find_contact_criteria']
             search_value = search_form.cleaned_data['find_contact_value']
             if search_criteria == 'name':
-                search_results = Contact.objects.filter(name__icontains=search_value)
+                contact_list = contact_list.filter(name__icontains=search_value)
             elif search_criteria == 'surname':
-                search_results = Contact.objects.filter(surname__icontains=search_value)
+                contact_list = contact_list.filter(surname__icontains=search_value)
             elif search_criteria == 'phone':
-                search_results = Contact.objects.filter(phone__icontains=search_value)
+                contact_list = contact_list.filter(phone__icontains=search_value)
             elif search_criteria == 'email':
-                search_results = Contact.objects.filter(email__icontains=search_value)
+                contact_list = contact_list.filter(email__icontains=search_value)
 
 
     request_path = request.path
     return render(request, 'contacts/contacts.html', {'page_obj': page_obj,
                                                       "upcoming_birthdays": upcoming_birthdays,
                                                       "request_path": request_path,
-                                                      "days_ahead_form": form,
-                                                      "search_form": search_form,
-                                                      'search_results': search_results})
-
-
-@login_required
-def search_contacts(request):
-    if request.method == 'POST':
-        form = ContactSearchForm(request.POST)
-        if form.is_valid():
-            criteria = form.cleaned_data['find_contact_criteria']
-            value = form.cleaned_data['find_contact_value']
-        else:
-            criteria = None
-            value = None
-    else:
-        criteria = request.GET.get('criteria')
-        value = request.GET.get('value')
-    page_number = request.GET.get('page')
-
-    contacts = []
-
-    if criteria and value:
-        if criteria == 'name':
-            contacts = Contact.objects.filter(name__icontains=value)
-        elif criteria == 'surname':
-            contacts = Contact.objects.filter(surname__icontains=value)
-        elif criteria == 'phone':
-            contacts = Contact.objects.filter(phone__icontains=value)
-        elif criteria == 'email':
-            contacts = Contact.objects.filter(email__icontains=value)
-    
-    paginator = Paginator(contacts, 10)
-    page_obj = paginator.get_page(page_number)
-
-    form = ContactSearchForm(initial={'find_contact_criteria': criteria, 'find_contact_value': value})
-    
-    return render(request, 'contacts/search_contacts.html', {'form': form, 'contacts': page_obj})
+                                                      "days_ahead_form": days_ahead_form,
+                                                      "search_form": search_form)
 
 
 @login_required
