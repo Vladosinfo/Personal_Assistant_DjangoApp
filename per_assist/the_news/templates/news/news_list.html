@@ -1,0 +1,12 @@
+{% extends "contacts/index.html" %}
+
+{% block content %}
+
+{% for n in news %}
+    <h2><a href="{% url 'the_news:news_detail' n.id %}">{{ n.title }}</a></h2>
+    <p>{{ n.content }}</p>
+    <p>Category: {{ n.category }}</p>
+    <p>Published: {{ n.published_date }}</p>
+{% endfor %}
+
+{% endblock %}
