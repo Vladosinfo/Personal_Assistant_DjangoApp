@@ -88,30 +88,7 @@ def delete_contact(request, pk):
     return render(request, 'contacts/confirm_delete.html', {'contact': contact})
 
 
-@login_required
-def birthday_list(request):
-    if request.method == 'POST':
-        form = DaysAheadForm(request.POST)
-        if form.is_valid():
-            days_ahead = form.cleaned_data['days_ahead']
-        else:
-            days_ahead = None
-    else:
-        days_ahead = request.GET.get('days_ahead')
-
-    upcoming_birthdays = get_upcoming_birthdays(request, days_ahead)
-
-    paginator = Paginator(upcoming_birthdays, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    form = DaysAheadForm(initial={'days_ahead': days_ahead})
-    return render(request, 'contacts/birthday_list.html', {
-        'page_obj': page_obj,
-        'days_ahead_form': form,
-    })
-
-
-def get_upcoming_birthdays(request, days_ahead):
+def get_upcoming_birthdays(days_ahead):
     try:
         days_ahead = int(days_ahead)
     except ValueError:
