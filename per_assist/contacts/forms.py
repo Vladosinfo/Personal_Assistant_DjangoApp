@@ -6,7 +6,7 @@ class DaysAheadForm(forms.Form):
     days_ahead = forms.IntegerField(
         label='Days Ahead',
         min_value=1,
-        initial=30,
+        initial=7,
         required=True,
         help_text='Enter the number of days ahead to check for upcoming birthdays.'
     )
