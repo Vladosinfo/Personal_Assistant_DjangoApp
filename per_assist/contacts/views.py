@@ -47,7 +47,7 @@ def contact_book(request):
                                                       "upcoming_birthdays": upcoming_birthdays,
                                                       "request_path": request_path,
                                                       "days_ahead_form": days_ahead_form,
-                                                      "search_form": search_form)
+                                                      "search_form": search_form})
 
 
 @login_required
