@@ -18,9 +18,8 @@ class Command(BaseCommand):
             data = response.json()
             for item in data['data']:
                 title = item['title']
-                # content = item['description']
+                content = item['description']
                 category = ", ".join(item['categories'])
-                category = item['categories'][0]
                 url = item["url"]
                 published_date = item['published_at']
 
