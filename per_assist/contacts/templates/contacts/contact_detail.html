@@ -1,0 +1,18 @@
+{% extends "contacts/index.html" %}
+
+{% block title %}Contact Detail{% endblock %}
+
+{% block content %}
+<h2>{{ contact.name }} {{ contact.surname }}</h2>
+<p>Email: {{ contact.email }}</p>
+<p>Phone: {{ contact.phone }}</p>
+<p>Birthday: {{ contact.birthday }}</p>
+<p>Address: {{ contact.address }}</p>
+{% if contact.additional_phone %}
+    <p>Additional Phone: {{ contact.additional_phone }}</p>
+{% endif %}
+{% if contact.additional_info %}
+    <p>Additional Info: {{ contact.additional_info }}</p>
+{% endif %}
+<a href="{% url 'contacts:contact_book' %}">Back to contact list</a>
+{% endblock %}
