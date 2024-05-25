@@ -8,9 +8,12 @@ class Contact(models.Model):
     surname = models.CharField(max_length=50, null=False)
     email = models.EmailField(max_length=250, null=False, unique=True)
     phone = PhoneNumberField(null=False)
+    additional_phone = models.CharField(max_length=20, blank=True, null=True)
     birthday = models.DateField(null=False)
     address = models.CharField(max_length=250, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    additional_info = models.CharField(max_length=100, null=True)
+
 
     objects = ContactManager()
 
