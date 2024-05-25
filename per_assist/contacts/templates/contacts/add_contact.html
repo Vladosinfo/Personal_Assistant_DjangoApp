@@ -10,10 +10,54 @@
 <form method="POST">
     {% csrf_token %}
     <div>
-        {{ form.as_p }}
-    </div>
-    <div>
+        {% for field in form %}
+        {% if field.name != 'additional_phone' %}
+            <div class="form-field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="errors">
+                        {% for error in field.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+        <div>
+            <label for="additional_phone_checkbox">Add Additional Phone</label>
+            <input type="checkbox" id="additional_phone_checkbox" name="additional_phone_checkbox">
+            <div id="additionalPhoneField" class="additional-phone-field">
+                {{ form.additional_phone }}
+            </div>
+        </div>
         <button type="submit">Save</button>
     </div>
 </form>
+<style>
+    .additional-phone-field {
+        display: none;
+    }
+
+    #additional_phone_checkbox:checked ~ .additional-phone-field {
+        display: block;
+    }
+</style>
+<script>
+    var checkbox = document.getElementById('additional_phone_checkbox');
+    var additionalPhoneField = document.getElementById('additional_phone_field');
+
+    checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+            additionalPhoneField.style.display = 'block';
+        } else {
+            additionalPhoneField.style.display = 'none';
+        }
+    });
+</script>
+
 {% endblock %}
