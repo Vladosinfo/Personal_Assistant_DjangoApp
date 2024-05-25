@@ -22,17 +22,18 @@ def upload_file(request):
 
 
 def file_list(request):
-    files = File.objects.filter(user=request.user)
+    files = File.objects.filter(user=request.user).order_by('-id')
     categories = File.objects.filter(user=request.user).values_list('category', flat=True).distinct()
     category = request.GET.get('category')
+    request_path = request.path
 
     if category:
-        files = files.filter(category=category)
+        files = files.filter(category=category).order_by('-id')
 
     for file in files:
         file.basename = os.path.basename(file.file.name)
 
-    return render(request, 'file_list.html', {'files': files, 'categories': categories})
+    return render(request, 'file_list.html', {'files': files, 'categories': categories, 'request_path': request_path})
 
 
 # def filter_files(request, category):
