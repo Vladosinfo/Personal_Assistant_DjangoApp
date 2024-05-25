@@ -1,6 +1,6 @@
 from django import forms
 from .models import Contact
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 class DaysAheadForm(forms.Form):
     days_ahead = forms.IntegerField(
@@ -26,7 +26,8 @@ class ContactSearchForm(forms.Form):
 
 class ContactForm(forms.ModelForm):
     birthday = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-
+    phone =PhoneNumberField(region='UA')
+    
     class Meta:
         model = Contact
         fields = ['name', 'surname', 'email', 'phone', 'birthday', 'address']
