@@ -7,7 +7,7 @@ from the_news.models import News
 class Command(BaseCommand):
     def handle(self, *args, **options):
         api_key = settings.API_KEY
-        categories = 'business,science,politics'
+        categories = 'business,science,politics,general,tech'
         limit = 10
 
         url = f'https://api.thenewsapi.com/v1/news/all?api_token={api_key}&categories={categories}&limit={limit}&language=en'
