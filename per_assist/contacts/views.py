@@ -13,19 +13,7 @@ def main(request):
 
 def contact_book(request):
     contact_list = Contact.objects.all().order_by('id')
-    paginator = Paginator(contact_list, 10)
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    days_ahead_form = DaysAheadForm(request.GET or None)
-    upcoming_birthdays = get_upcoming_birthdays(7)
-    if 'days_ahead' in request.GET:
-        days_ahead_form = DaysAheadForm(request.GET)
-        if days_ahead_form.is_valid():
-            days_ahead = days_ahead_form.cleaned_data['days_ahead']
-            contact_list = contact_list.filter(id__in=[contact.id for contact in get_upcoming_birthdays(days_ahead)])
-
-    
     search_form = ContactSearchForm(request.GET or None)
     if 'find_contact_criteria' in request.GET and 'find_contact_value' in request.GET:
         search_form = ContactSearchForm(request.GET)
@@ -41,6 +29,17 @@ def contact_book(request):
             elif search_criteria == 'email':
                 contact_list = contact_list.filter(email__icontains=search_value)
 
+    days_ahead_form = DaysAheadForm(request.GET or None)
+    upcoming_birthdays = get_upcoming_birthdays(7)
+    if 'days_ahead' in request.GET:
+        days_ahead_form = DaysAheadForm(request.GET)
+        if days_ahead_form.is_valid():
+            days_ahead = days_ahead_form.cleaned_data['days_ahead']
+            contact_list = contact_list.filter(id__in=[contact.id for contact in get_upcoming_birthdays(days_ahead)])
+
+    paginator = Paginator(contact_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     request_path = request.path
     return render(request, 'contacts/contacts.html', {'page_obj': page_obj,
@@ -57,6 +56,10 @@ def add_contact(request):
         if form.is_valid():
             contact = form.save(commit=False)
             contact.user = request.user
+            if 'additional_phone_checkbox' in request.POST and request.POST['additional_phone_checkbox'] == 'on':
+                additional_phone = request.POST.get('additional_phone', None)
+                if additional_phone:
+                    contact.additional_phone = additional_phone
             form.save()
             return redirect('contacts:contact_book')
     else:
@@ -95,3 +98,8 @@ def get_upcoming_birthdays(days_ahead):
         days_ahead = 7
     upcoming_birthdays = Contact.objects.get_birthdays_in_days(days_ahead)
     return upcoming_birthdays
+
+
+def contact_detail(request, pk):
+    contact = get_object_or_404(Contact, pk=pk)
+    return render(request, 'contacts/contact_detail.html', {'contact': contact})
