@@ -57,7 +57,40 @@
 
         <div class="row">
             
-            <div class="col-md-3 tags-box" vstyle="border:1px solid red">
+            <div class="col-md-3">
+
+                {% if request_path == "/files/" or request_path == "/files/files/"  %}
+                <div class="search_notes">
+                    <h4>Files filter</h4>                
+                    <form method="get" action="{% url 'files:file_list' %}">
+                        <select name="category">
+                            <option value="">All categories</option>
+                            {% for category in categories %}
+                                <option value="{{ category }}" {% if category == request.GET.category %}selected{% endif %}>{{ category }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Filter</button>
+                    </form>
+                </div>
+                {% endif %}
+
+                {% if request_path == "/the_news/" or request_path == "/the_news/the_news/"  %}
+                <div class="search_notes">
+                    <h4>News filter</h4>
+                    <form method="get">
+                        <select name="categories">
+                            <option value="">All categories</option>
+                            <option value="general"  {% if selected_category == 'general' %}selected{% endif %}>general</option>
+                            <option value="business" {% if selected_category == 'business' %}selected{% endif %}>business</option>
+                            <option value="science"  {% if selected_category == 'science' %}selected{% endif %}>science</option>
+                            <option value="politics" {% if selected_category == 'politics' %}selected{% endif %}>politics</option>
+                            <option value="tech"     {% if selected_category == 'tech' %}selected{% endif %}>tech</option>
+                        </select>
+                        <button type="submit">Filter</button>
+                    </form>
+                </div>
+                {% endif %}
+
                 {% if request_path == "/notes/" or request_path == "/notes/notes/" %}
 
                 <div class="search_notes">

@@ -12,7 +12,7 @@ def main(request):
 
 
 def contact_book(request):
-    contact_list = Contact.objects.all().order_by('id')
+    contact_list = Contact.objects.all().order_by('-id')
 
     search_form = ContactSearchForm(request.GET or None)
     if 'find_contact_criteria' in request.GET and 'find_contact_value' in request.GET:
@@ -21,13 +21,13 @@ def contact_book(request):
             search_criteria = search_form.cleaned_data['find_contact_criteria']
             search_value = search_form.cleaned_data['find_contact_value']
             if search_criteria == 'name':
-                contact_list = contact_list.filter(name__icontains=search_value)
+                contact_list = contact_list.filter(name__icontains=search_value).order_by('-id')
             elif search_criteria == 'surname':
-                contact_list = contact_list.filter(surname__icontains=search_value)
+                contact_list = contact_list.filter(surname__icontains=search_value).order_by('-id')
             elif search_criteria == 'phone':
-                contact_list = contact_list.filter(phone__icontains=search_value)
+                contact_list = contact_list.filter(phone__icontains=search_value).order_by('-id')
             elif search_criteria == 'email':
-                contact_list = contact_list.filter(email__icontains=search_value)
+                contact_list = contact_list.filter(email__icontains=search_value).order_by('-id')
 
     days_ahead_form = DaysAheadForm(request.GET or None)
     upcoming_birthdays = get_upcoming_birthdays(7)
@@ -35,7 +35,7 @@ def contact_book(request):
         days_ahead_form = DaysAheadForm(request.GET)
         if days_ahead_form.is_valid():
             days_ahead = days_ahead_form.cleaned_data['days_ahead']
-            contact_list = contact_list.filter(id__in=[contact.id for contact in get_upcoming_birthdays(days_ahead)])
+            contact_list = contact_list.filter(id__in=[contact.id for contact in get_upcoming_birthdays(days_ahead)]).order_by('-id')
 
     paginator = Paginator(contact_list, 10)
     page_number = request.GET.get('page')
