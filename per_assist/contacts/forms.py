@@ -27,7 +27,9 @@ class ContactSearchForm(forms.Form):
 class ContactForm(forms.ModelForm):
     birthday = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     phone =PhoneNumberField(region='UA')
+    additional_phone = forms.CharField(label='Additional Phone', required=False)
+    additional_info = forms.CharField(required=False)
     
     class Meta:
         model = Contact
-        fields = ['name', 'surname', 'email', 'phone', 'birthday', 'address']
+        fields = ['name', 'surname', 'email', 'phone', 'birthday', 'address', 'additional_phone', 'additional_info']
