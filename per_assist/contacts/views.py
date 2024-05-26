@@ -92,6 +92,8 @@ def delete_contact(request, pk):
 
 
 def get_upcoming_birthdays(days_ahead):
+    if not days_ahead:
+        days_ahead = 364
     try:
         days_ahead = int(days_ahead)
     except ValueError:
