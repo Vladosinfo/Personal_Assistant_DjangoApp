@@ -7,7 +7,7 @@ from the_news.models import News
 class Command(BaseCommand):
     def handle(self, *args, **options):
         api_key = settings.API_KEY
-        categories = 'business,science,politics'
+        categories = 'business,science,politics,general,tech'
         limit = 10
 
         url = f'https://api.thenewsapi.com/v1/news/all?api_token={api_key}&categories={categories}&limit={limit}&language=en'
@@ -23,8 +23,12 @@ class Command(BaseCommand):
                 url = item["url"]
                 published_date = item['published_at']
 
-
-                News.objects.create(title=title, content=content, category=category, url=url, published_date=published_date)
+                all_news = News.objects.all()
+                for n in all_news:
+                    if n.title == title:
+                        break
+                else:
+                    News.objects.create(title=title, content=content, category=category, url=url, published_date=published_date)
             self.stdout.write(self.style.SUCCESS('News fetched successfully'))
         else:
             self.stdout.write(self.style.ERROR(f'Error fetching news: {response.status_code}'))

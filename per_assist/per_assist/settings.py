@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'weather',
     'exchange_rates',
     'the_news',
+    'forecast',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +107,7 @@ DATABASES = {
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
         'HOST': env('DATABASE_HOST'),
-        'PORT': env('DATABASE_PORT'),       
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
@@ -164,7 +165,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
@@ -174,3 +174,6 @@ AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 API_KEY = env('API_KEY')
+API_KEY_WEATHER = env('API_KEY_WEATHER')
+
+EX_CHANGE_URL_TEMPLATE = env('EX_CHANGE_URL_TEMPLATE')

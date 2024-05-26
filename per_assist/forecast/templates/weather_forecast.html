@@ -1,0 +1,9 @@
+{% extends "contacts/index.html" %}
+
+
+{% block content %}
+  <h1>Weather for {{ weather.location }}</h1>
+  <p>Temperature: {{ weather.temperature }}°C</p>
+  <p>Description: {{ weather.description }}</p>
+  <p>Last updated: {{ weather.timestamp }}</p>
+{% endblock %}

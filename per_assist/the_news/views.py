@@ -1,10 +1,17 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.management import call_command
+# import subprocess
 from .models import News
 
 
 def news_list(request):
-    news = News.objects.all()
-    return render(request, 'news/news_list.html', {'news': news})
+    news = News.objects.all().order_by('-published_date')
+    selected_category = request.GET.get('categories')
+    request_path = request.path
+
+    if selected_category and selected_category != '':
+        news = news.filter(category__contains=selected_category).order_by('-published_date')
+    return render(request, 'news/news_list.html', {'news': news, 'selected_category': selected_category, 'request_path': request_path})
 
 
 def news_detail(request, pk):
@@ -12,6 +19,21 @@ def news_detail(request, pk):
     return render(request, 'news/news_detail.html', {'news': news})
 
 
-def news_category(request, category):
-    news = News.objects.filter(category=category)
-    return render(request, 'news/news_list.html', {'news': news})
+def main_news_list(request):
+    news = News.objects.all().order_by('-published_date')
+    news = news.filter(category='general').order_by('-published_date')
+    return render(request, 'contacts/index.html', {'news': news})
+
+
+# def news_category(request, category):
+#     news = News.objects.filter(category=category)
+#     return render(request, 'news/news_list.html', {'news': news})
+
+
+# def fetch_news():
+#     subprocess.Popen(['python', 'manage.py', 'fetch_news'])
+
+
+def fetch_news_view(request):
+    call_command('fetch_news')
+    return redirect('the_news:news_list')

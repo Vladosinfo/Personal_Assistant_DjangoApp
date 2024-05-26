@@ -5,15 +5,15 @@
 
 <a href="{% url 'files:upload_file' %}" role="button">Upload new file</a></br></br>
 
-<form method="get" action="{% url 'files:file_list' %}">
+<!-- <form method="get" action="{#% url 'files:file_list' %#}">
     <select name="category">
         <option value="">All categories</option>
-        {% for category in categories %}
-            <option value="{{ category }}" {% if category == request.GET.category %}selected{% endif %}>{{ category }}</option>
-        {% endfor %}
+        {#% for category in categories %#}
+            <option value="{{ category }}" {#% if category == request.GET.category %}selected{% endif %#}>{{ category }}</option>
+        {#% endfor %#}
     </select>
     <button type="submit">Filter</button>
-</form>
+</form> -->
 
 {% for file in files %}
     <div>
