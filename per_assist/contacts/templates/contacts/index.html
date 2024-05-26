@@ -121,17 +121,18 @@
                 {% endif %}
                 {% if request_path == "/contacts/" %}
                     <div class="upcoming-birthdays">
-                        <h3>Upcoming Birthdays</h3>
-                        <form method="GET" action="{% url 'contacts:contact_book' %}">
-                            {{ days_ahead_form.as_p }}
-                            <button type="submit" class="btn btn-primary">Check</button>
-                        </form>
                         <h5>Birthdays in 7 days</h5>
                         <ul>
                             {% for contact in upcoming_birthdays %}
                                 <li>{{ contact.name }} {{ contact.surname }} - {{ contact.birthday }}</li>
                             {% endfor %}
                         </ul>
+                        <h3>Upcoming Birthdays</h3>
+                        <form method="GET" action="{% url 'contacts:contact_book' %}">
+                            {{ days_ahead_form.as_p }}
+                            <button type="submit" class="btn btn-primary">Check</button>
+                        </form>
+                        
                     </div>
                     <div class="search_contacts">
                         <h4>Search Contacts</h4>
