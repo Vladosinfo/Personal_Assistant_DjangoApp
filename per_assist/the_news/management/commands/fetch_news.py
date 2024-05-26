@@ -23,8 +23,12 @@ class Command(BaseCommand):
                 url = item["url"]
                 published_date = item['published_at']
 
-
-                News.objects.create(title=title, content=content, category=category, url=url, published_date=published_date)
+                all_news = News.objects.all()
+                for n in all_news:
+                    if n.title == title:
+                        break
+                else:
+                    News.objects.create(title=title, content=content, category=category, url=url, published_date=published_date)
             self.stdout.write(self.style.SUCCESS('News fetched successfully'))
         else:
             self.stdout.write(self.style.ERROR(f'Error fetching news: {response.status_code}'))

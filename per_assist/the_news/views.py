@@ -19,6 +19,12 @@ def news_detail(request, pk):
     return render(request, 'news/news_detail.html', {'news': news})
 
 
+def main_news_list(request):
+    news = News.objects.all().order_by('-published_date')
+    news = news.filter(category='general').order_by('-published_date')
+    return render(request, 'contacts/index.html', {'news': news})
+
+
 # def news_category(request, category):
 #     news = News.objects.filter(category=category)
 #     return render(request, 'news/news_list.html', {'news': news})
@@ -26,6 +32,7 @@ def news_detail(request, pk):
 
 # def fetch_news():
 #     subprocess.Popen(['python', 'manage.py', 'fetch_news'])
+
 
 def fetch_news_view(request):
     call_command('fetch_news')
