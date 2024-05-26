@@ -4,7 +4,7 @@ from django.shortcuts import render
 # from django.conf import settings
 # from django.http import JsonResponse
 from .models import Weather
-from .dict_folder.dictionaryes import weather_descriptions, location_description
+from .dict_folder.dictionaries import weather_descriptions, location_description
 
 
 # def get_weather(request):
