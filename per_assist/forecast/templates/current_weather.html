@@ -1,6 +1,19 @@
 {% extends "contacts/index.html" %}
 
 {% block content %}
+<form method="GET" action="{% url 'forecast:get_current_weather' %}">
+  <select name="location">
+    <option value="50.4501,30.5234" {% if location == 'Kyiv' %}selected{% endif %}>Kyiv</option>
+    <option value="51.5074,-0.1278" {% if location == 'London' %}selected{% endif %}>London</option>
+    <option value="38.8951,-77.0364" {% if location == 'Washington' %}selected{% endif %}>Washington</option>
+    <option value="48.8566,2.3522" {% if location == 'Paris' %}selected{% endif %}>Paris</option>
+    <option value="52.5200,13.4050" {% if location == 'Berlin' %}selected{% endif %}>Berlin</option>
+    <option value="41.9028,12.4964" {% if location == 'Rome' %}selected{% endif %}>Rome</option>
+    <option value="40.4168,-3.7038" {% if location == 'Madrid' %}selected{% endif %}>Madrid</option>
+  </select>
+  <button type="submit">Get weather</button>
+</form>
+
   <h1>Current weather for {{ weather.location }}</h1>
   <p>Temperature: {{ weather.temperature }}°C</p>
   <p>Description: {{ weather.description }}</p>
