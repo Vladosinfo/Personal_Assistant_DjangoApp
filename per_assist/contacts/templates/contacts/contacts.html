@@ -30,7 +30,7 @@
 <ul>
     {% for contact in page_obj %}
         <li class="contact-item">
-            <a href="{% url 'contacts:contact_detail' contact.id %}">{{ contact.name }} {{ contact.surname }}</a> {{ contact.phone }}
+            <a href="{% url 'contacts:contact_detail' contact.id %}">{{ contact.name }} {{ contact.surname }}</a> {{ contact.phone }} -- {{ contact.email }}
             <div class="contact-buttons">
             <button type="submit" onclick="window.location.href = '{% url 'contacts:edit_contact' contact.id %}';">Edit</button>
             <form method="post" action="{% url 'contacts:delete_contact' contact.id %}" style="display:inline;">
