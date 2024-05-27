@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'users',
     'files',
     'storages',
-    'weather',
+    # 'weather',
     'exchange_rates',
     'the_news',
     'forecast',
