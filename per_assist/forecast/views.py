@@ -29,7 +29,7 @@ from .dict_folder.dictionaries import weather_descriptions, location_description
 def get_weather_forecast(request):
     loc = request.GET.get('location', '50.4501,30.5234')
     latitude, longitude = loc.split(',')
-    url = f'https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=temperature_2m_max,precipitation_sum,/weathercode&timezone=Europe/Kiev'
+    url = f'https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=temperature_2m_max,precipitation_sum,weathercode&timezone=Europe/Kiev'
 
     response = requests.get(url)
     data = response.json()
