@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 
 @login_required
 def exchange_rates(request):
+    # date = cur_date_get_from_db(1)
     date = cur_date_get_from_db(1)
     # print(f"date555555555555555555: {date}")
     exchange_rates = Exchange_rates.objects.filter(date=date)
@@ -21,6 +22,7 @@ def exchange_rates(request):
 
     if len(exchange_rates) == 0:
         exchange_rates = import_exchange_rates(request)
+        # exchange_rates = json_to_dict(exchange_rates)   # TODO
         # print(f"exchange_rates: {exchange_rates}")
     else:
         exchange_rates = json_to_dict(exchange_rates)

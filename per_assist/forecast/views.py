@@ -52,8 +52,9 @@ def get_weather_forecast(request):
         )
         weather.save()
         weather_forecast.append(weather)
+        request_path = request.path
 
-    return render(request, 'weather_forecast.html', {'weather_forecast': weather_forecast, 'location': location})
+    return render(request, 'weather_forecast.html', {'weather_forecast': weather_forecast, 'location': location, 'request_path': request_path})
 
 
 def get_current_weather(request):
@@ -69,6 +70,7 @@ def get_current_weather(request):
     weather_code = current_weather.get('weathercode', 0)
     description = weather_descriptions.get(weather_code, 'Unknown')
     location = location_description.get(loc, 'Kyiv')
+    request_path = request.path
 
     weather = Weather(
         location=location,
@@ -78,4 +80,4 @@ def get_current_weather(request):
     )
     weather.save()
 
-    return render(request, 'current_weather.html', {'weather': weather, 'location': location})
+    return render(request, 'current_weather.html', {'weather': weather, 'location': location, 'request_path': request_path})
