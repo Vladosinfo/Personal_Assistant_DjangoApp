@@ -60,6 +60,7 @@ def notes(request, tag_id=None):
     #     "tag_size_block": tag_size_block,
     #     "most_used_tags": most_used_tags,
     #     "request_path": request.path,
+    #     'form': form
     # }
 
     # return render(request, 'notes/notes.html', {"context": context})
