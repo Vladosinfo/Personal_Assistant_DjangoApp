@@ -1,7 +1,7 @@
 {% extends "contacts/index.html" %}
 
 {% block content %}
-<form method="GET" action="{% url 'forecast:get_weather_forecast' %}">
+<form method="GET" action="{% url 'forecast:get_current_weather' %}">
   <select name="location">
     <option value="50.4501,30.5234" {% if location == 'Kyiv' %}selected{% endif %}>Kyiv</option>
     <option value="51.5074,-0.1278" {% if location == 'London' %}selected{% endif %}>London</option>
@@ -13,14 +13,9 @@
   </select>
   <button type="submit">Get weather</button>
 </form>
-<h1>7 day weather forecast for {{ location }}</h1>
-  <ul>
-    {% for weather in weather_forecast %}
-      <li>
-        <p>Date: {{ weather.forecast_date }}</p>
-        <p>Temperature: {{ weather.temperature }}°C</p>
-        <p>Description: {{ weather.description }}</p>
-      </li>
-    {% endfor %}
-  </ul>
+
+  <h1>Current weather for {{ weather.location }}</h1>
+  <p>Temperature: {{ weather.temperature }}°C</p>
+  <p>Description: {{ weather.description }}</p>
+  <p>Last update: {{ weather.timestamp }}</p>
 {% endblock %}

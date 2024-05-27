@@ -36,11 +36,6 @@ def file_list(request):
     return render(request, 'file_list.html', {'files': files, 'categories': categories, 'request_path': request_path})
 
 
-# def filter_files(request, category):
-#     files = File.objects.filter(user=request.user, category=category)
-#     return render(request, 'file_list.html', {'files': files})
-
-
 def download_file(request, file_id):
     file = get_object_or_404(File, id=file_id)
     if file.user != request.user:

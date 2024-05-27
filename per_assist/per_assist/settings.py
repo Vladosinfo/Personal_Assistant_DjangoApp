@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'users',
     'files',
     'storages',
-    'weather',
+    # 'weather',
     'exchange_rates',
     'the_news',
     'forecast',
@@ -135,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
