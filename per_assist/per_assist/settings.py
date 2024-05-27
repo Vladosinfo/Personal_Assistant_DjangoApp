@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'per_assist.wsgi.application'
 # docker ps
 # docker exec -it per_assist-postgres bash
 # psql -h localhost -U postgres
-# CREATE DATABASE per_assist; 
+# CREATE DATABASE per_assist;
 # \l    - list of databases
 
 DATABASES = {

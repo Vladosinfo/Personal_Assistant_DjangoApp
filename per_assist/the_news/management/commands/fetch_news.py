@@ -10,7 +10,9 @@ class Command(BaseCommand):
         categories = 'business,science,politics,general,tech'
         limit = 10
 
-        url = f'https://api.thenewsapi.com/v1/news/all?api_token={api_key}&categories={categories}&limit={limit}&language=en'
+        url = f'https://api.thenewsapi.com/v1/news/all?api_token={api_key}\
+                &categories={categories}&limit={limit}&language=en'
+
         response = requests.get(url)
 
         if response.status_code == 200:
@@ -23,16 +25,11 @@ class Command(BaseCommand):
                 url = item["url"]
                 published_date = item['published_at']
 
-                # all_news = News.objects.all()           
-                # for n in all_news:
-                #     if n.title == title:
-                #         break
-                # else:
-                #     News.objects.create(title=title, content=content, category=category, url=url, published_date=published_date)
-
                 already_is = News.objects.filter(title__icontains=title)
                 if len(already_is) == 0:
-                    News.objects.create(title=title, content=content, category=category, url=url, published_date=published_date)
+                    News.objects.create(title=title, content=content,
+                                        category=category, url=url,
+                                        published_date=published_date)
 
             self.stdout.write(self.style.SUCCESS('News fetched successfully'))
         else:

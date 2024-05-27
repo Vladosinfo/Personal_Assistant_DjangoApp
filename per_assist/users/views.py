@@ -26,10 +26,12 @@ def signupuser(request):
 
 def loginuser(request):
     if request.user.is_authenticated:
-       return redirect(to='contacts:main')
+        return redirect(to='contacts:main')
 
     if request.method == 'POST':
-        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(username=request.POST['username'],
+                            password=request.POST['password'])
+
         if user is None:
             messages.error(request, 'Username or password didn\'t match')
             return redirect(to='users:login')
@@ -51,5 +53,6 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     email_template_name = 'users/password_reset_email.html'
     html_email_template_name = 'users/password_reset_email.html'
     success_url = reverse_lazy('users:password_reset_done')
-    success_message = "An email with instructions to reset your password has been sent to %(email)s."
+    success_message = "An email with instructions to reset your\
+                        password has been sent to %(email)s."
     subject_template_name = 'users/password_reset_subject.txt'

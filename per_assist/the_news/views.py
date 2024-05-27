@@ -10,7 +10,11 @@ def news_list(request):
 
     if selected_category and selected_category != '':
         news = news.filter(category__contains=selected_category).order_by('-published_date')
-    return render(request, 'news/news_list.html', {'news': news, 'selected_category': selected_category, 'request_path': request_path})
+
+    return render(request, 'news/news_list.html',
+                  {'news': news,
+                   'selected_category': selected_category,
+                   'request_path': request_path})
 
 
 def news_detail(request, pk):

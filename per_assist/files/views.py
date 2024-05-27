@@ -33,7 +33,9 @@ def file_list(request):
     for file in files:
         file.basename = os.path.basename(file.file.name)
 
-    return render(request, 'file_list.html', {'files': files, 'categories': categories, 'request_path': request_path})
+    return render(request, 'file_list.html', {'files': files,
+                                              'categories': categories,
+                                              'request_path': request_path})
 
 
 def download_file(request, file_id):
@@ -48,7 +50,10 @@ def download_file(request, file_id):
     encoded_filename = quote(filename.encode('utf-8'))
 
     response = HttpResponse(file_data, content_type='application/octet-stream')
-    response['Content-Disposition'] = f'attachment; filename="{encoded_filename}"; filename*=utf-8\'\'{encoded_filename}'
+    response['Content-Disposition'] = f'attachment;\
+                                        filename="{encoded_filename}";\
+                                        filename*=utf-8\'\'{encoded_filename}'
+
     return response
 
 
