@@ -13,12 +13,19 @@ def validate_file_size(value):
 
 class File(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    file = models.FileField(upload_to='files/', validators=[validate_file_size])
+
+    file = models.FileField(upload_to='files/',
+                            validators=[validate_file_size])
+
     category = models.CharField(max_length=50)
 
     @property
     def is_image(self):
-        return self.file.name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.jfif'))
+        return self.file.name.lower().endswith(('.png',
+                                                '.jpg',
+                                                '.jpeg',
+                                                '.gif',
+                                                '.jfif'))
 
     @property
     def icon(self):
@@ -30,6 +37,5 @@ class File(models.Model):
             'doc': 'doc_icon.png',
             'docx': 'doc_icon.png',
             'xls': 'xls_icon.png',
-            # ====================
         }
         return icon_dict.get(extension, 'default_icon.png')

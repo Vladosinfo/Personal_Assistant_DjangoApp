@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'per_assist.wsgi.application'
 # docker ps
 # docker exec -it per_assist-postgres bash
 # psql -h localhost -U postgres
-# CREATE DATABASE per_assist; 
+# CREATE DATABASE per_assist;
 # \l    - list of databases
 
 DATABASES = {
@@ -173,6 +173,5 @@ AWS_DEFAULT_ACL = None
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 API_KEY = env('API_KEY')
-API_KEY_WEATHER = env('API_KEY_WEATHER')
 
 EX_CHANGE_URL_TEMPLATE = env('EX_CHANGE_URL_TEMPLATE')

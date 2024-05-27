@@ -1,29 +1,8 @@
 import requests
 from datetime import datetime
 from django.shortcuts import render
-# from django.conf import settings
-# from django.http import JsonResponse
 from .models import Weather
 from .dict_folder.dictionaries import weather_descriptions, location_description
-
-
-# def get_weather(request):
-#     api_key = settings.API_KEY_WEATHER
-#     location = request.GET.get('location', 'Kyiv')
-#     url = f'http://api.weatherstack.com/current?access_key={api_key}&query={location}'
-
-#     response = requests.get(url)
-#     data = response.json()
-
-#     weather_data = data.get('current', {})
-#     weather = Weather(
-#         location=location,
-#         temperature=weather_data.get('temperature', 0),
-#         description=weather_data.get('weather_descriptions', [''])[0]
-#     )
-#     weather.save()
-
-#     return render(request, 'weather_forecast.html', {'weather': weather})
 
 
 def get_weather_forecast(request):
@@ -54,13 +33,17 @@ def get_weather_forecast(request):
         weather_forecast.append(weather)
         request_path = request.path
 
-    return render(request, 'weather_forecast.html', {'weather_forecast': weather_forecast, 'location': location, 'request_path': request_path})
+    return render(request, 'weather_forecast.html',
+                  {'weather_forecast': weather_forecast,
+                   'location': location,
+                   'request_path': request_path})
 
 
 def get_current_weather(request):
     loc = request.GET.get('location', '50.4501,30.5234')
     latitude, longitude = loc.split(',')
-    url = f'https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true'
+    url = f'https://api.open-meteo.com/v1/forecast?latitude={latitude}\
+            &longitude={longitude}&current_weather=true'
 
     response = requests.get(url)
     data = response.json()
@@ -80,4 +63,7 @@ def get_current_weather(request):
     )
     weather.save()
 
-    return render(request, 'current_weather.html', {'weather': weather, 'location': location, 'request_path': request_path})
+    return render(request, 'current_weather.html',
+                  {'weather': weather,
+                   'location': location,
+                   'request_path': request_path})

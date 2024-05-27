@@ -1,8 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from datetime import timedelta
 from .models import Contact
 from .forms import DaysAheadForm, ContactSearchForm, ContactForm
 
@@ -21,13 +19,17 @@ def contact_book(request):
             search_criteria = search_form.cleaned_data['find_contact_criteria']
             search_value = search_form.cleaned_data['find_contact_value']
             if search_criteria == 'name':
-                contact_list = contact_list.filter(name__icontains=search_value).order_by('-id')
+                contact_list = contact_list.filter(
+                    name__icontains=search_value).order_by('-id')
             elif search_criteria == 'surname':
-                contact_list = contact_list.filter(surname__icontains=search_value).order_by('-id')
+                contact_list = contact_list.filter(
+                    surname__icontains=search_value).order_by('-id')
             elif search_criteria == 'phone':
-                contact_list = contact_list.filter(phone__icontains=search_value).order_by('-id')
+                contact_list = contact_list.filter(
+                    phone__icontains=search_value).order_by('-id')
             elif search_criteria == 'email':
-                contact_list = contact_list.filter(email__icontains=search_value).order_by('-id')
+                contact_list = contact_list.filter(
+                    email__icontains=search_value).order_by('-id')
 
     days_ahead_form = DaysAheadForm(request.GET or None)
     upcoming_birthdays = get_upcoming_birthdays(7)
@@ -42,11 +44,12 @@ def contact_book(request):
     page_obj = paginator.get_page(page_number)
 
     request_path = request.path
-    return render(request, 'contacts/contacts.html', {'page_obj': page_obj,
-                                                      "upcoming_birthdays": upcoming_birthdays,
-                                                      "request_path": request_path,
-                                                      "days_ahead_form": days_ahead_form,
-                                                      "search_form": search_form})
+    return render(request, 'contacts/contacts.html',
+                           {'page_obj': page_obj,
+                            "upcoming_birthdays": upcoming_birthdays,
+                            "request_path": request_path,
+                            "days_ahead_form": days_ahead_form,
+                            "search_form": search_form})
 
 
 @login_required
@@ -56,7 +59,8 @@ def add_contact(request):
         if form.is_valid():
             contact = form.save(commit=False)
             contact.user = request.user
-            if 'additional_phone_checkbox' in request.POST and request.POST['additional_phone_checkbox'] == 'on':
+            if 'additional_phone_checkbox' in request.POST and request.POST[
+               'additional_phone_checkbox'] == 'on':
                 additional_phone = request.POST.get('additional_phone', None)
                 if additional_phone:
                     contact.additional_phone = additional_phone
@@ -88,7 +92,9 @@ def delete_contact(request, pk):
     if request.method == 'POST':
         contact.delete()
         return redirect('contacts:contact_book')
-    return render(request, 'contacts/confirm_delete.html', {'contact': contact})
+
+    return render(request, 'contacts/confirm_delete.html',
+                  {'contact': contact})
 
 
 def get_upcoming_birthdays(days_ahead):
@@ -104,4 +110,5 @@ def get_upcoming_birthdays(days_ahead):
 
 def contact_detail(request, pk):
     contact = get_object_or_404(Contact, pk=pk)
-    return render(request, 'contacts/contact_detail.html', {'contact': contact})
+    return render(request, 'contacts/contact_detail.html',
+                           {'contact': contact})
