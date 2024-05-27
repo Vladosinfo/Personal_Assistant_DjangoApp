@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.management import call_command
-# import subprocess
 from .models import News
 
 
@@ -23,15 +22,6 @@ def main_news_list(request):
     news = News.objects.all().order_by('-published_date')
     news = news.filter(category='general').order_by('-published_date')
     return render(request, 'contacts/index.html', {'news': news})
-
-
-# def news_category(request, category):
-#     news = News.objects.filter(category=category)
-#     return render(request, 'news/news_list.html', {'news': news})
-
-
-# def fetch_news():
-#     subprocess.Popen(['python', 'manage.py', 'fetch_news'])
 
 
 def fetch_news_view(request):
