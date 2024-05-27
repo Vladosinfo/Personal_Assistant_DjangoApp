@@ -4,7 +4,13 @@
 
 
 <div>
-    <div>{{exchange_result}}</div>
+    <div>{{rates}}</div>
+    <div>{{date}}</div>
+    <div>
+        {% for rate in rates %}
+            <div>{{rate.purchaseRate}} &nbsp; {{rate.currency}} &nbsp; {{rate.saleRate}}</div>
+        {% endfor %}
+    </div>
     <!-- <div style="margin-bottom: 5px; border:1px solid #7CA3E6; border-radius: 10px; padding: 5px; margin:bottom 20px" class="title" itemprop="text">
         Exchage rates test page.
     </div>       -->
