@@ -1,24 +1,25 @@
 from ..abstract_classes.abstract_format import Abstract_format
-# from .Request_rates import Request_rates
-# from ..abstract_classes.request_data import Request_data
 
 class Json_format(Abstract_format):
-   
-    # def __init__(self, rates: Request_data, source) -> None:
-    #     self.rates = rates
-    #     self.source = source
 
     def __init__(self, data) -> None:
         self.data = data
 
     
     def generate(self):
-        dict = {self.data["date"] : {}}
+        dict_rates = {}
+        split_data = self.data["date"].split('.')
+        data = split_data[2] + '-' + split_data[1] + '-' + split_data[0]
+        dict_rates["date"] = data  #.strftime("%Y.%d.%m")
+        dict_rates["baseCurrency"] = self.data["baseCurrencyLit"]
+        dict_rates["exchangeRateList"] = []
         for item in self.data["exchangeRate"]:
-            if item["currency"] == "EUR" or item["currency"] == "USD" or item["currency"] == "GBP":
-                edict = {item["currency"] : {"sale" : round(float(item["saleRate"]), 1),                       
-                                             "purchase" : round(float(item["purchaseRate"]), 2)}
-                         }
-                dict[self.data["date"]].update(edict)
-        return dict
-
+            # CHF - Swiss Franc
+            # GBP - Pound sterling
+            if item["currency"] == "EUR" or item["currency"] == "USD" or item["currency"] == "GBP" or item["currency"]  == "PLN" or item["currency"] == "CHF":
+                dict_currency = {}
+                dict_currency["currency"] = item["currency"]
+                dict_currency["saleRate"] = item["saleRate"]
+                dict_currency["purchaseRate"] = item["purchaseRate"]
+                dict_rates["exchangeRateList"].append(dict_currency)
+        return dict_rates
