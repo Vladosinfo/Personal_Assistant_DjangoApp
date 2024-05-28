@@ -4,27 +4,37 @@
 
 
 <div>
-    <!-- <div>{{rates}}</div> -->
-    <div><h3>{{date}}</h3></div>
-    <div>
-        {% for rate in rates %}
-            <div>{{rate.purchaseRate}} &nbsp; {{rate.currency}} &nbsp; {{rate.saleRate}}</div>
-        {% endfor %}
-    </div>
-    <!-- <div style="margin-bottom: 5px; border:1px solid #7CA3E6; border-radius: 10px; padding: 5px; margin:bottom 20px" class="title" itemprop="text">
-        Exchage rates test page.
-    </div>       -->
-    <!-- <div>
-        <ul>
-            <li>
-                <uL>25.05.2024:
-                    <li>EUR: sale: 43.3 &nbsp;|&nbsp; purchase: 43.3</li>
-                    <li>USD: sale: 39.9 &nbsp;|&nbsp; purchase: 39.9</li>
-                </uL>
+    {% for rates in list_rates %}
+        <div><h3>{{rates.date}}</h3></div>
+        <div>
+            {% for rate in rates.rates %}
+                <div>{{rate.purchaseRate}} &nbsp; {{rate.currency}} &nbsp; {{rate.saleRate}}</div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <nav>
+        <ul class="pager">
+            
+            <li class="previous">
+                {% if list_rates.has_previous %}
+                <a href="?page=1"><span aria-hidden="true">←←</span> First</a>
+                <a href="?page={{ list_rates.previous_page_number }}"><span aria-hidden="true">←</span> Previous</a>
+                {% endif %}                        
+            </li>
+            
+            <span class="current">
+                Page {{ list_rates.number }} of {{ list_rates.paginator.num_pages }}.
+            </span>
+
+            <li class="next">
+                {% if list_rates.has_next %}
+                <a href="?page={{ list_rates.paginator.num_pages }}">Last <span aria-hidden="true">→→</span></a>
+                <a href="?page={{ list_rates.next_page_number }}">Next <span aria-hidden="true">→</span></a>
+                {% endif %}
             </li>
         </ul>
-    </div> -->
+    </nav>
 </div>
-
 
 {% endblock %}

@@ -19,7 +19,7 @@ class Json_format(Abstract_format):
             if item["currency"] == "EUR" or item["currency"] == "USD" or item["currency"] == "GBP" or item["currency"]  == "PLN" or item["currency"] == "CHF":
                 dict_currency = {}
                 dict_currency["currency"] = item["currency"]
-                dict_currency["saleRate"] = item["saleRate"]
-                dict_currency["purchaseRate"] = item["purchaseRate"]
+                dict_currency["saleRate"] = f"{float(item['saleRate']):.2f}"
+                dict_currency["purchaseRate"] = f"{float(item['purchaseRate']):.2f}"
                 dict_rates["exchangeRateList"].append(dict_currency)
         return dict_rates

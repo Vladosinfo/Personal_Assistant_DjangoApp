@@ -2,30 +2,36 @@
 
 {% block content %}
 
-<!-- <form method="get">
-    <select name="categories">
-        <option value="">All categories</option>
-        <option value="general"  {% if selected_category == 'general' %}selected{% endif %}>general</option>
-        <option value="business" {% if selected_category == 'business' %}selected{% endif %}>business</option>
-        <option value="science"  {% if selected_category == 'science' %}selected{% endif %}>science</option>
-        <option value="politics" {% if selected_category == 'politics' %}selected{% endif %}>politics</option>
-        <option value="tech"     {% if selected_category == 'tech' %}selected{% endif %}>tech</option>
-    </select>
-    <button type="submit">Filter</button>
-</form> -->
+    <a href="{% url 'the_news:fetch_news' %}" role="button">Fetch News</a>
 
-<!-- <form action="{% url 'the_news:fetch_news' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Fetch News</button>
-</form> -->
+    {% for n in news %}
+        <h2><a href="{% url 'the_news:news_detail' n.id %}">{{ n.title }}</a></h2>
+        <p>{{ n.content }}</p>
+        <p>Category: {{ n.category }}</p>
+        <p>Published: {{ n.published_date }}</p>
+    {% endfor %}
 
-<a href="{% url 'the_news:fetch_news' %}" role="button">Fetch News</a>
+    <nav>
+        <ul class="pager">
+            
+            <li class="previous">
+                {% if news.has_previous %}
+                <a href="?page=1"><span aria-hidden="true">←←</span> First</a>
+                <a href="?page={{ news.previous_page_number }}"><span aria-hidden="true">←</span> Previous</a>
+                {% endif %}                        
+            </li>
+            
+            <span class="current">
+                Page {{ news.number }} of {{ news.paginator.num_pages }}.
+            </span>
 
-{% for n in news %}
-    <h2><a href="{% url 'the_news:news_detail' n.id %}">{{ n.title }}</a></h2>
-    <p>{{ n.content }}</p>
-    <p>Category: {{ n.category }}</p>
-    <p>Published: {{ n.published_date }}</p>
-{% endfor %}
+            <li class="next">
+                {% if news.has_next %}
+                <a href="?page={{ news.paginator.num_pages }}">Last <span aria-hidden="true">→→</span></a>
+                <a href="?page={{ news.next_page_number }}">Next <span aria-hidden="true">→</span></a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
 
 {% endblock %}
