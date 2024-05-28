@@ -13,6 +13,8 @@
     <div class="container">
         <div class="row header-box">
             <div class="col-md-2">
+                <!-- <a href="/"><img src="https://www.clipartmax.com/png/middle/167-1673487_userimg-virtual-assistant-icon.png" alt="Personal assistant"></a> -->
+                <!-- <a href="/"><img src="{% static 'contacts/images/logo.png'%}" alt="Personal assistant"></a> -->
                 <h2>
                     <a href="/" style="text-decoration: none">Personal<br>assistant</a>
                 </h2>
@@ -182,6 +184,30 @@
                         </form>
                     </div>
                 {% endif %}
+
+                {% if request_path == "/exchange_rates/"%}
+                <div class="search_notes">
+                    <h4>Get exchange rates for several days from this date:</h4>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    <div>
+                        <div><h3>{{date}}</h3></div>
+                        <div>
+                            {% for rate in rates %}
+                                <div>{{rate.purchaseRate}} &nbsp; {{rate.currency}} &nbsp; {{rate.saleRate}}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+
             </div>
 
             <div class="col-md-9">

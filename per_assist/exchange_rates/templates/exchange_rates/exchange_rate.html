@@ -1,0 +1,13 @@
+{% extends "contacts/index.html" %}
+
+{% block content %}
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
