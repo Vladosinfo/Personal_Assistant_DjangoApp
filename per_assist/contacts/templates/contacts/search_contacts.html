@@ -3,10 +3,10 @@
 {% block title %}Contact Search{% endblock %}
 
 {% block content %}
+<h1>Contact Search</h1>
 <nav>
     <a href="{% url 'contacts:contact_book' %}">Back</a>
 </nav>
-    <h1>Contact Search</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

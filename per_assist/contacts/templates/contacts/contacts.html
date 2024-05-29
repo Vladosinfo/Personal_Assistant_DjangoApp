@@ -3,60 +3,48 @@
 {% block title %}Contact List{% endblock %}
 
 {% block content %}
-<style>
-        .contact-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
 
-        .contact-buttons {
-            display: flex;
-            gap: 10px;
-        }
+    <h1>Contacts</h1>
 
-        .contact-buttons button {
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-        }
-</style>
-<nav>
-    <button type="submit" onclick="window.location.href = {% url 'contacts:add_contact' %}">Add new contact</button>
-</nav>
+    <nav>
+        <button type="submit" onclick="window.location.href = {% url 'contacts:add_contact' %}">Add new contact</button>
+    </nav>
 
-<ul>
-    {% for contact in page_obj %}
-        <li class="contact-item">
-            <a href="{% url 'contacts:contact_detail' contact.id %}">{{ contact.name }} {{ contact.surname }}</a> {{ contact.phone }} -- {{ contact.email }}
-            <div class="contact-buttons">
-            <button type="submit" onclick="window.location.href = '{% url 'contacts:edit_contact' contact.id %}';">Edit</button>
-            <form method="post" action="{% url 'contacts:delete_contact' contact.id %}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this contact?');">Delete</button>
-            </form>
+    <div>
+        {% for contact in page_obj %}
+            <div class="contact-item">
+                <div class="items"><a href="{% url 'contacts:contact_detail' contact.id %}">{{ contact.name }} {{ contact.surname }}</a></div>
+                <div class="items">{{ contact.phone }}</div>
+                <div class="items">{{ contact.email }}</div>
+                <div class="contact-buttons">
+                    <button type="submit" onclick="window.location.href = '{% url 'contacts:edit_contact' contact.id %}';">Edit</button>
+                    <form method="post" action="{% url 'contacts:delete_contact' contact.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this contact?');">Delete</button>
+                    </form>
+                </div>
             </div>
-        </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </div>
 
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
         </span>
+    </div>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
 {% endblock %}

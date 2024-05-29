@@ -675,3 +675,26 @@
     font-weight: bold;
   }
   
+  .contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .contact-item .items {
+    display:inline-block;
+    width:25%;
+   }
+
+  .contact-buttons {
+      display: flex;
+      gap: 10px;
+  }
+
+  .contact-buttons button {
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+  }

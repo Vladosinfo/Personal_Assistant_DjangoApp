@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<h1>Add new note</h1>
+
 <form method="POST" action="{% url 'notes:note' %}">
     {% csrf_token %}
     <div style="padding: 10px">

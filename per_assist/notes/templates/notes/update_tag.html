@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<h1>Update tag</h1>
+
 <form method="POST" action="{% url 'notes:update_tag' tag.id %}">
     {% csrf_token %}
     <div style="padding: 10px">
