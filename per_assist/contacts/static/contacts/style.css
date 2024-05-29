@@ -698,3 +698,7 @@
       border: none;
       cursor: pointer;
   }
+
+  .container .logo {
+    margin-top: 10px;
+  }
