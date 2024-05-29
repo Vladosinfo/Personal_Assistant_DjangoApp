@@ -42,10 +42,12 @@
                     </div>
                     {% else %}
                     <div class="per-assist-menu">
-                        <ul>
-                            <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
-                            <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
-                        </ul>
+                        <div class="user-login-menu">
+                            <ul>
+                                <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
+                                <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
+                            </ul>
+                        </div>
                     </div>
                     {% endif %}  
                 </div>     
@@ -55,10 +57,10 @@
 
         <div class="row">
             
-            <div class="col-md-3">
+            <div class="col-md-3 left-column">
 
                 {% if request_path == "/forecast/current/"%}
-                <div class="search_notes">
+                <div class="weather_block block">
                     <h4>Select weather for:</h4> 
                     <form method="GET" action="{% url 'forecast:get_current_weather' %}">
                         <select name="location">
@@ -76,7 +78,7 @@
                 {% endif %}
 
                 {% if request_path == "/forecast/"%}
-                <div class="search_notes">
+                <div class="weather_block block">
                     <h4>Select weather for:</h4>           
                     <form method="GET" action="{% url 'forecast:get_weather_forecast' %}">
                         <select name="location">
@@ -94,7 +96,7 @@
                 {% endif %}
 
                 {% if request_path == "/files/" or request_path == "/files/files/"  %}
-                <div class="search_notes">
+                <div class="files_block block">
                     <h4>Files filter</h4>                
                     <form method="get" action="{% url 'files:file_list' %}">
                         <select name="category">
@@ -109,7 +111,7 @@
                 {% endif %}
 
                 {% if request_path == "/the_news/" or request_path == "/the_news/the_news/"  %}
-                <div class="search_notes">
+                <div class="news_block block">
                     <h4>News filter</h4>
                     <form method="get">
                         <select name="categories">
@@ -127,7 +129,7 @@
 
                 {% if request_path == "/notes/" or request_path == "/notes/notes/" %}
 
-                <div class="search_notes">
+                <div class="notes_block block">
                     <h4>Search notes</h4>
                     <form method="post">
                         {% csrf_token %}
@@ -143,17 +145,21 @@
                     </form>
                 </div>
 
-                <div class="top_ten_tags">
-                    <h4>Sort notes by tags</h4>
-                    {% for tag in most_used_tags %}
-                        <span class="tag-item">
-                            <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'notes:notes' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_notes }} notes)
-                        </span>
-                    {% endfor %}
+                <div class="tag_block block">
+                    <div class="top_ten_tags">
+                        <h4>Sort notes by tags</h4>
+                        {% for tag in most_used_tags %}
+                            <span class="tag-item">
+                                <a class="tag" style="font-size: {{ tag_size_block|slice:forloop.counter|last }}px" href="{% url 'notes:notes' %}?tag_id={{tag.id}}">{{ tag.name }}</a> ({{ tag.num_notes }} notes)
+                            </span>
+                        {% endfor %}
+                    </div>
                 </div>
+
                 {% endif %}
                 {% if request_path == "/contacts/" %}
-                    <div class="upcoming-birthdays">
+
+                    <div class="upcoming-birthdays birthdays_contacts_block block">
                         <h4>Upcoming Birthdays</h4>
                         <h5>Birthdays in 7 days</h5>
                         <ul>
@@ -165,9 +171,9 @@
                             {{ days_ahead_form.as_p }}
                             <button type="submit" class="btn btn-primary">Check</button>
                         </form>
-                        
                     </div>
-                    <div class="search_contacts">
+
+                    <div class="search_contacts search_contacts_block block">
                         <h4>Search Contacts</h4>
                         <form method="get">
                             <div>
@@ -184,7 +190,7 @@
                 {% endif %}
 
                 {% if request_path == "/exchange_rates/"%}
-                <div class="search_notes">
+                <div class="rates_block block">
                     <h4>Get exchange rates for several days from this date:</h4>
                         <form method="post">
                             {% csrf_token %}
@@ -195,10 +201,10 @@
                 {% endif %}
 
                 {#% if user.is_authenticated %#}
-                    <div>
+                    <div class="exchange_rates_block block">
                         <div><h4>Exchange rates</h4></div>
-                        <div><h5>{{date}}</h5></div>
-                        <div>
+                        <div class="date"><h5>{{date}}</h5></div>
+                        <div class="rates">
                             {% for rate in rates %}
                                 <div>{{rate.purchaseRate}} &nbsp; {{rate.currency}} &nbsp; {{rate.saleRate}}</div>
                             {% endfor %}
@@ -262,7 +268,7 @@
                                     </li>
                                 </ul>
                             </nav>         
-                        </div>>
+                        </div>
                     {% endif %}   
                     
                     {% if not user.is_authenticated %}
@@ -312,7 +318,7 @@
     <footer class="footer">
         <div class="container">
             <p class="copyright">
-                Made by <span class="zyte">Pythonic wizards team</span>
+                © 2024, made by <span class="copy">Pythonic wizards team</span>
             </p>
         </div>
     </footer>

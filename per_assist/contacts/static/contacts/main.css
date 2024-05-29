@@ -4,7 +4,7 @@ body {
 }
 
 .container{
-  margin-bottom: 100px;
+  margin-bottom: 130px;
 }
 
 .container .text-muted {
@@ -57,7 +57,7 @@ body {
   border-radius: 5px;
   color: white;
   font-size: small;
-  background-color: #7CA3E6;
+  background-color: #A0FDFF;
 }
 
 .scrapy {
@@ -123,7 +123,7 @@ ul.pager {
 }
 
 .copy {
-  color: #b02cce;
+  color: #006400;
 }
 
  .per-assist-menu {
@@ -150,4 +150,110 @@ ul.pager {
 .per-assist-menu .user-login-menu{
   width: 35%;
   text-align: right;
+}
+
+a {
+  text-decoration: none;
+}
+a:link {
+  color: #007439; 
+  border-bottom: 1px dashed; 
+}
+a:visited {
+  color: #218359;
+}
+a:hover {
+  color: #007241; 
+  border-bottom: .07em solid;
+  text-decoration: underline;
+}
+a:active {
+  color: #218359; 
+  border-bottom: 1px dashed;
+}
+
+.per-assist-menu .user-menu a {
+  background: white;
+  text-decoration: none;
+}
+.per-assist-menu .user-menu a:hover {
+  background: #61D7A4;
+}
+
+.user-login-menu a {
+  background: white;
+  text-decoration: none;
+}
+.user-login-menu a:hover {
+  background: #61D7A4;
+}
+
+.button {
+  width:auto;
+  text-decoration: none;
+
+}
+/* button[type=submit], input:not([type=checkbox],[type=radio]), select, textarea { */
+/* button[type=submit], input:not([type=checkbox],[type=radio]), select, textarea { */
+button[type=submit] {
+  width: auto;
+  color: #007439; 
+  background-color: #fff;
+}
+.button:hover {
+  background: #61D7A4;
+}
+
+.news_list_button{
+  margin-bottom: 7px;
+}
+.news_list_button, .tags_list_button {
+  margin-bottom: 15px;
+}
+.news_list_button a, .file_list_button a, .tags_list_button a{ 
+  width:auto;
+  color: #007439; 
+  background-color: #fff;
+}
+.news_list_button a:hover, .file_list_button a:hover, .tags_list_button a:hover {
+  width:auto;
+  background: #61D7A4;
+  text-decoration: none;
+}
+
+.pager a {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.forecast .day{
+  margin-bottom: 20px;
+}
+.forecast .day .date h5{
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+/* .list_tags {
+  width:200px;
+} */
+/* .list_tags .tag {
+  margin-bottom: 5px; border:1px solid hsl(149, 68%, 69%); border-radius: 10px; padding: 5px; margin:bottom 20px
+} */
+
+.news_container .news_item {
+  margin-bottom: 20px;
+}
+.news_container .news_item .category, .news_container .news_item .date{
+  font-size: 16px;
+}
+
+.list_file .file{
+  margin-bottom: 30px;
+}
+.list_file .image{
+  margin-bottom: 7px;
+}
+.list_file .file .file_name, .list_file .file .category{
+  font-size: 16px;
 }

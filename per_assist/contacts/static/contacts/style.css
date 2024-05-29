@@ -702,3 +702,36 @@
   .container .logo {
     margin-top: 10px;
   }
+
+  .container .left-column .block {
+    /* border: 1px solid green; */
+    border:1px solid hsl(149, 68%, 69%); border-radius: 10px; padding: 10px; margin-bottom: 10px;
+    /* border:1px solid #FF4900; border-radius: 10px; padding: 10px; margin-bottom: 10px; */
+  }
+
+  .container .left-column .exchange_rates_block .rates {
+    text-align: center;
+  }
+  .container .left-column .exchange_rates_block .date {
+    text-align: center;
+  }
+
+  .notes_list .note {
+    border:1px solid hsl(149, 68%, 69%); border-radius: 10px; padding: 10px; margin-bottom: 10px;
+    /* border:1px solid #7ce6ca; border-radius: 10px; padding: 10px; margin-bottom: 10px */
+  }
+
+  .notes_links  {
+    margin-bottom: 10px;
+  }
+  .notes_links a {
+    margin-right: 30px;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    color:#007439
+  }
+
+  h4{
+    font-weight: bold;
+  }

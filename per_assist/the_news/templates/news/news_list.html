@@ -4,14 +4,20 @@
 
     <h1>News list</h1>
 
-    <a href="{% url 'the_news:fetch_news' %}" role="button">Fetch News</a>
+    <div class="news_list_button">
+        <a href="{% url 'the_news:fetch_news' %}" role="button">Fetch News</a>
+    </div>
 
+    <div class="news_container">
     {% for n in news %}
-        <h2><a href="{% url 'the_news:news_detail' n.id %}">{{ n.title }}</a></h2>
-        <p>{{ n.content }}</p>
-        <p>Category: {{ n.category }}</p>
-        <p>Published: {{ n.published_date }}</p>
+        <div class="news_item">
+            <h4><a href="{% url 'the_news:news_detail' n.id %}">{{ n.title }}</a></h2>
+            <div class="description">{{ n.content }}</div>
+            <div class="category">Category: {{ n.category }}</div>
+            <div class="date">Published: {{ n.published_date }}</div>
+        </div>
     {% endfor %}
+    </div>
 
     <nav>
         <ul class="pager">
