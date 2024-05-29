@@ -3,10 +3,10 @@
 {% block title %}Edit Contact{% endblock %}
 
 {% block content %}
+<h1>Edit Contact</h1>
 <nav>
     <a href="{% url 'contacts:contact_book' %}">Back</a>
 </nav>
-<h2>Edit Contact</h2>
 <form method="POST">
     {% csrf_token %}
     <div>

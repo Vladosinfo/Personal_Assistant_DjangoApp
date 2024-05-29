@@ -3,10 +3,25 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Contact
 from .forms import DaysAheadForm, ContactSearchForm, ContactForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def main(request):
-    return render(request, 'contacts/index.html')
+
+    contact_list = Contact.objects.all().order_by('-id')
+
+    # Pagination
+    paginator = Paginator(contact_list, 10)
+    page_number = request.GET.get('page')
+    try:
+        contact_list = paginator.page(page_number)
+    except PageNotAnInteger:
+        contact_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contact_list = paginator.page(paginator.num_pages)
+   
+    return render(request, 'contacts/index.html', {"contact_list": contact_list})   
 
 
 def contact_book(request):

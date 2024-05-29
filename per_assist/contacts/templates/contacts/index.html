@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
     <link rel="stylesheet" href="{% static 'contacts/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'contacts/main.css' %}">
+    <link rel="stylesheet" href="{% static 'contacts/style.css' %}">
 </head>
 <body>
 
@@ -16,7 +17,7 @@
                 <!-- <a href="/"><img src="https://www.clipartmax.com/png/middle/167-1673487_userimg-virtual-assistant-icon.png" alt="Personal assistant"></a> -->
                 <!-- <a href="/"><img src="{% static 'contacts/images/logo.png'%}" alt="Personal assistant"></a> -->
                 <h2>
-                    <a href="/" style="text-decoration: none">Personal<br>assistant</a>
+                    <a href="/" style="text-decoration: none">OrganizePro</a>
                 </h2>
             </div>
             <div class="col-md-10">
@@ -28,7 +29,6 @@
                             <ul>
                                 <li><a href="{% url 'contacts:contact_book' %}" role="button">Contacts</a></li>
                                 <li><a href="{% url 'notes:notes' %}" role="button">Notes</a></li>
-                                <li><a href="{% url 'notes:tags' %}" role="button">Tags</a></li>
                                 <li><a href="{% url 'files:file_list' %}" role="button">Files</a></li>
                                 <li><a href="{% url 'exchange_rates:exchange_rates' %}" role="button">Exchange rates</a></li>
                                 <li><a href="{% url 'the_news:news_list' %}" role="button">News</a></li>
@@ -196,23 +196,115 @@
                     </div>
                 {% endif %}
 
-                {% if user.is_authenticated %}
+                {#% if user.is_authenticated %#}
                     <div>
-                        <div><h3>{{date}}</h3></div>
+                        <div><h4>Exchange rates</h4></div>
+                        <div><h5>{{date}}</h5></div>
                         <div>
                             {% for rate in rates %}
                                 <div>{{rate.purchaseRate}} &nbsp; {{rate.currency}} &nbsp; {{rate.saleRate}}</div>
                             {% endfor %}
                         </div>
                     </div>
-                {% endif %}
 
+                    <!-- <div>
+                        <div>
+                            <h4>Current weather for {{ weather.location }}</h4>
+                            <p>Temperature: {{ weather.temperature }}°C</p>
+                            <p>Description: {{ weather.description }}</p>
+                            <p>Last update: {{ weather.timestamp }}</p>
+                        </div>
+                    </div> -->
+                {#% endif %#}
 
             </div>
 
             <div class="col-md-9">
                 
-                {% block content %} {% endblock %}
+                {% block content %}
+                
+                    {% if user.is_authenticated %}
+                        <div>
+                            {% for contact in contact_list %}
+                                <div class="contact-item">
+                                    <div class="items"><a href="{% url 'contacts:contact_detail' contact.id %}">{{ contact.name }} {{ contact.surname }}</a></div>
+                                    <div class="items">{{ contact.phone }}</div>
+                                    <div class="items">{{ contact.email }}</div>
+                                    <div class="contact-buttons">
+                                        <button type="submit" onclick="window.location.href = '{% url 'contacts:edit_contact' contact.id %}';">Edit</button>
+                                        <form method="post" action="{% url 'contacts:delete_contact' contact.id %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this contact?');">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div>
+                            <nav>
+                                <ul class="pager">
+                                    
+                                    <li class="previous">
+                                        {% if contact_list.has_previous %}
+                                        <a href="?page=1"><span aria-hidden="true">←←</span> First</a>
+                                        <a href="?page={{ contact_list.previous_page_number }}"><span aria-hidden="true">←</span> Previous</a>
+                                        {% endif %}                        
+                                    </li>
+                                    
+                                    <span class="current">
+                                        Page {{ contact_list.number }} of {{ contact_list.paginator.num_pages }}.
+                                    </span>
+                    
+                                    <li class="next">
+                                        {% if contact_list.has_next %}
+                                        <a href="?page={{ contact_list.paginator.num_pages }}">Last <span aria-hidden="true">→→</span></a>
+                                        <a href="?page={{ contact_list.next_page_number }}">Next <span aria-hidden="true">→</span></a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </nav>         
+                        </div>>
+                    {% endif %}   
+                    
+                    {% if not user.is_authenticated %}
+
+                        {% for n in news_main_not_auth %}
+                            <h2><a href="{% url 'the_news:news_detail' n.id %}">{{ n.title }}</a></h2>
+                            <p>{{ n.content }}</p>
+                            <p>Category: {{ n.category }}</p>
+                            <p>Published: {{ n.published_date }}</p>
+                        {% endfor %}
+
+                        <div>
+                            <nav>
+                                <ul class="pager">
+                                    
+                                    <li class="previous">
+                                        {% if news_main_not_auth.has_previous %}
+                                        <a href="?page=1"><span aria-hidden="true">←←</span> First</a>
+                                        <a href="?page={{ news_main_not_auth.previous_page_number }}"><span aria-hidden="true">←</span> Previous</a>
+                                        {% endif %}                        
+                                    </li>
+                                    
+                                    <span class="current">
+                                        Page {{ news_main_not_auth.number }} of {{ news_main_not_auth.paginator.num_pages }}.
+                                    </span>
+                    
+                                    <li class="next">
+                                        {% if news_main_not_auth.has_next %}
+                                        <a href="?page={{ news_main_not_auth.paginator.num_pages }}">Last <span aria-hidden="true">→→</span></a>
+                                        <a href="?page={{ news_main_not_auth.next_page_number }}">Next <span aria-hidden="true">→</span></a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </nav>         
+                        </div>
+
+
+                    {% endif %} 
+                
+                {% endblock %}
 
             </div>
 

@@ -2,6 +2,8 @@
 
 {% block content %}
 
+    <h1>News list</h1>
+
     <a href="{% url 'the_news:fetch_news' %}" role="button">Fetch News</a>
 
     {% for n in news %}

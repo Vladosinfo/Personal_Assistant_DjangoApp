@@ -2,10 +2,11 @@
 
 {% block content %}       
 
-<h3>List of notes</h3>
+<h1>List of notes</h1>
 
 <a href="{% url 'notes:note' %}" role="button">Add new note</a>
 <a href="{% url 'notes:tag' %}" role="button">Add new tag</a>
+<a href="{% url 'notes:tags' %}" role="button">Tags</a>
 
 <div class="row">
     <div class="col-md-8">
