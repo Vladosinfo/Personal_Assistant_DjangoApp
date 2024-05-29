@@ -63,9 +63,15 @@ def exchange_rates(request):
             list_rates = paginator.page(1)
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
-            list_rates = paginator.page(paginator.num_pages)        
+            list_rates = paginator.page(paginator.num_pages)   
 
     return render(request, 'exchange_rates/exchange_rates.html', {'form': form, 'request_path': request_path, 'list_rates': list_rates})
+
+
+# @login_required
+# def delete_rate(request, rate_id):
+#     Exchange_rates.objects.filter(pk=rate_id).delete()
+#     return redirect(to='exchange_rates:exchange_rates')
 
 
 def list_json_to_list_dict(list_json):
