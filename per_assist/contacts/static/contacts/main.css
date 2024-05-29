@@ -143,11 +143,11 @@ ul.pager {
 }
 
 .per-assist-menu .user-menu{
-  /* width: 60%; */
+  width: 65%;
   text-align: left;
 }
 
 .per-assist-menu .user-login-menu{
-  width: 30%;
+  width: 35%;
   text-align: right;
 }
