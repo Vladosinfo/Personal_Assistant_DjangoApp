@@ -3,14 +3,16 @@
 {% block content %}
 
   <h1>7 day weather forecast for {{ location }}</h1>
-  <ul>
+  <div class="forecast">
     {% for weather in weather_forecast %}
-      <li>
-        <p>Date: {{ weather.forecast_date }}</p>
-        <p>Temperature: {{ weather.temperature }}°C</p>
-        <p>Description: {{ weather.description }}</p>
-      </li>
+      <div class="day">
+        <div class="date"><h5>{{ weather.forecast_date }}</h5></div>
+        <div class="temperature">Temperature: {{ weather.temperature }}°C</div>
+        <div class="description">Description: {{ weather.description }}</div>
+      </div>
     {% endfor %}
-  </ul>
+    </div>
+
+
 
 {% endblock %}
