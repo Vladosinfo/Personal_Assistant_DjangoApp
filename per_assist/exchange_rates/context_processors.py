@@ -11,8 +11,8 @@ def shared_data(request):
     if len(rate) < 1:
         get_rates(request)
         rate = get_exchange_rate()
-    else:
-        rate = []
+    # else:
+    #     rate = []
 
     return {
         'date': rate['date'],
