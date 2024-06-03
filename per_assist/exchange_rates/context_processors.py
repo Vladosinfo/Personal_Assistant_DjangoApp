@@ -3,10 +3,14 @@ from .models import Exchange_rates
 from datetime import datetime, timedelta
 
 from datetime import datetime
+from exchange_rates.views import get_rates
 
 
 def shared_data(request):
     rate = get_exchange_rate()
+    if len(rate) < 1:
+        get_rates(request)
+        rate = get_exchange_rate()
 
     return {
         'date': rate['date'],
@@ -20,9 +24,10 @@ def get_exchange_rate():
     if len(exchange_rates) == 0:
         date = cur_date_get_from_db(1)
         exchange_rates = Exchange_rates.objects.filter(date=date)
-        exchange_rates = json_to_dict(exchange_rates)
+        if len(exchange_rates) > 0:
+            exchange_rates = json_to_dict(exchange_rates)
     else:
-        exchange_rates = json_to_dict(exchange_rates)
+            exchange_rates = json_to_dict(exchange_rates)
 
     return exchange_rates
 
