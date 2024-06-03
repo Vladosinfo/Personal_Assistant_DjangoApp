@@ -130,6 +130,11 @@ def cur_date_get_from_db(day=0):
 
 
 @login_required
+def get_rates(request):
+    import_exchange_rates(request)
+
+
+@login_required
 def import_exchange_rates(request, count = 0, get_date = False):
     ex_change_url_template = settings.EX_CHANGE_URL_TEMPLATE
 
