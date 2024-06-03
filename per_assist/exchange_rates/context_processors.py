@@ -8,11 +8,11 @@ from exchange_rates.views import get_rates
 
 def shared_data(request):
     rate = get_exchange_rate()
-    if len(rate) < 1:
+    if not rate:
         get_rates(request)
         rate = get_exchange_rate()
-    # else:
-    #     rate = []
+        if not rate:
+            rate = {'date': "", 'rates': ""}
 
     return {
         'date': rate['date'],

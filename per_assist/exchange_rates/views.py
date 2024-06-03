@@ -165,7 +165,7 @@ def import_exchange_rates(request, count = 0, get_date = False):
         if get_date == False:
             url = ex_change_url_template + cur_date
         else:
-            url = ex_change_url_template + get_date     
+            url = ex_change_url_template + get_date.strftime("%d.%m.%Y")     
 
         response_rate = get_rate(url)
 
